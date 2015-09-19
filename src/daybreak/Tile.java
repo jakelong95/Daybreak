@@ -18,6 +18,7 @@ public class Tile {
 	//public Vector2d Location //Where we will draw it on screen.
 	public boolean isBlocked; //If true, we cannot walk or shoot through this.
 	
+	static Image[] tileGFX; //Array of tiles to populate base.
 	
 }
 
