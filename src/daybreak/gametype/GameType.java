@@ -37,8 +37,9 @@ public abstract class GameType extends BasicGameState
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
+		System.out.println("IS THIS WHAT YOU WANT STEVE");
 		Tile.loadTiles();
-		
+		System.out.println("frick test long string hit jesse eisenberg");
 		init();
 		
 		player.setInput(container.getInput());

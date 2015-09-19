@@ -75,6 +75,7 @@ public class Tile
 	
 	public static void loadTiles() throws SlickException
 	{
+		System.out.println("hit epic of gilgamesh stuff long string easy to see mark zuckerberg");
 		//Create the array of tile images
 		tileGFX = new Image[4]; 
 		

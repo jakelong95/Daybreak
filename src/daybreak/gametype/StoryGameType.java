@@ -28,6 +28,7 @@ public class StoryGameType extends GameType
 	@Override
 	public void init()
 	{
+		System.out.println("spider-man, spider-man put the time into it");
 		try
 		{
 			map = mapParser.parseStoryMap();
@@ -37,7 +38,7 @@ public class StoryGameType extends GameType
 			e.printStackTrace();
 		}
 		
-		player.setPosition(75, 10);
+		player.setPosition(5, 10);
 	}
 
 	@Override
