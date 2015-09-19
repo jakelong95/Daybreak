@@ -1,6 +1,7 @@
 package daybreak;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 
 public class Tile
@@ -16,6 +17,17 @@ public class Tile
 	//public Vector2d Location //Where we will draw it on screen.
 	public boolean isBlocked; //If true, we cannot walk or shoot through this.
 	
-	static Image[] tileGFX; //Array of tiles to populate base.
+	public static Image[] tileGFX; //Array of tiles to populate base.
+	
+	public static void loadTiles() throws SlickException
+	{
+		//Create the array of tile images
+		tileGFX = new Image[3]; 
+		
+		//Load the tile images
+		tileGFX[FLOOR] = new Image("gfx/Floor.png");
+		tileGFX[WALL] = new Image("gfx/Wall.png");
+		tileGFX[DOOR] = new Image("gfx/Door.png");
+	}
 }
 
