@@ -19,6 +19,12 @@ public class Tile
 	
 	public static Image[] tileGFX; //Array of tiles to populate base.
 	
+	public void setTileType(int tileType)
+	{
+		terrainType = tileType;
+		tileImage = tileGFX[tileType];
+	}
+	
 	public static void loadTiles() throws SlickException
 	{
 		//Create the array of tile images
