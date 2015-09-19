@@ -4,8 +4,6 @@ import org.newdawn.slick.Image;
 
 /**
  * Represents an entity in the game.
- *
- * @author Jacob Long
  */
 public abstract class Entity
 {
@@ -16,8 +14,20 @@ public abstract class Entity
 	protected int posX;
 	protected int posY;
 	
+	//Reference to the map. Used for pathfinding and moving the player
+	protected Tile[][] map;
+	
 	//This entity's health
 	protected int health;
+	
+	/**
+	 * Creates a new entity.
+	 * @param map Reference to the map.
+	 */
+	public Entity(Tile[][] map)
+	{
+		this.map = map;
+	}
 	
 	/**
 	 * Assign a new image to this entity.
@@ -73,6 +83,17 @@ public abstract class Entity
 		this.posY = posY;
 	}
 
+	/**
+	 * Sets the location of this entity.
+	 * @param x New X coordinate.
+	 * @param y New Y coordinate.
+	 */
+	public void setPosition(int x, int y)
+	{
+		posX = x;
+		posY = y;
+	}
+	
 	/**
 	 * Gets the current health of this entity.
 	 * @return Current health.

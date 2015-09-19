@@ -5,14 +5,26 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * TODO Add description
+ * Move from room to room as time or
+ * kills allow you to progress.
  */
 public class StoryGameType extends GameType
 {
+	public StoryGameType()
+	{
+		super(85, 20);
+	}
+
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException
+	public void init()
 	{
 		//TODO Create map here
+	}
+
+	@Override
+	public void update(int deltaTime)
+	{
+		//TODO Perform game logic here
 	}
 
 	@Override
