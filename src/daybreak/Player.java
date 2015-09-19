@@ -1,8 +1,17 @@
 package daybreak;
 
-import org.newdawn.slick.Input;
+import static org.newdawn.slick.Input.KEY_A;
+import static org.newdawn.slick.Input.KEY_D;
+import static org.newdawn.slick.Input.KEY_DOWN;
+import static org.newdawn.slick.Input.KEY_LEFT;
+import static org.newdawn.slick.Input.KEY_RIGHT;
+import static org.newdawn.slick.Input.KEY_S;
+import static org.newdawn.slick.Input.KEY_UP;
+import static org.newdawn.slick.Input.KEY_W;
 
-import static org.newdawn.slick.Input.*;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
 /**
  * Represents the player.
@@ -25,7 +34,19 @@ public class Player extends Entity
 	public Player(Tile[][] map)
 	{
 		super(map);
-
+		
+		//For testing
+		//TODO Remove
+		try
+		{
+			img = new Image("gfx/Door.bmp");
+		} 
+		catch (SlickException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		timeSinceLastUpdate = 0;
 	}
 
@@ -50,23 +71,35 @@ public class Player extends Entity
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
-			//Move the player up
-			--posY;
+			//Check if the player can move up
+			if(map[posY - 1][posX].canPlayerPass)
+			{
+				--posY;
+			}
 		}
 		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
 		{
-			//Move the player left
-			--posX;
+			//Check if the player can move left
+			if(map[posY][posX - 1].canPlayerPass)
+			{
+				--posX;
+			}
 		}
 		else if(input.isKeyDown(KEY_S) || input.isKeyDown(KEY_DOWN))
 		{
-			//Move the player down
-			++posY;
+			//Check if the player can move down
+			if(map[posY + 1][posX].canPlayerPass)
+			{
+				++posY;
+			}
 		}
 		else if(input.isKeyDown(KEY_D) || input.isKeyDown(KEY_RIGHT))
 		{
-			//Move the player right
-			++posX;
+			//Check if the player can move right
+			if(map[posY][posX + 1].canPlayerPass)
+			{
+				++posX;
+			}
 		}
 	}
 	
@@ -77,5 +110,14 @@ public class Player extends Entity
 	public void setInput(Input input)
 	{
 		this.input = input;
+	}
+	
+	/**
+	 * Renders the player's image.
+	 */
+	public void render()
+	{
+		//Always render the player at the center of the screen
+		img.draw(4 * Daybreak.TILE_SIZE, 4 * Daybreak.TILE_SIZE);
 	}
 }
