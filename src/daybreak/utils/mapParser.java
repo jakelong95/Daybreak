@@ -31,18 +31,26 @@ public class mapParser
 	   
 	    Tile[][] ret = new Tile[80][20];
 	    
-	    for (String[] t : resolvedData)
+	    String[][] tempArr = (String[][]) resolvedData.toArray();
+	    
+	    for (int i = 0; i < tempArr.length; i++)
 	    {
-	    	for(String x : t)
+	    	for(int j = 0; j < tempArr[0].length; j++)
 	    	{
-	    		switch(x)
+	    		switch(tempArr[i][j])
 	    		{
 	    		case "-1"://No tile
 	    			break;
-	    		case "2":
-	    			
+	    		case "2": //wall
+	    			ret[i][j] = new Tile(Tile.WALL);
+	    		case "13": //Interior Door
+	    			ret[i][j] = new Tile(Tile.INTERIOR_DOOR);
+	    		case "18": //Floor
+	    			ret[i][j] = new Tile(Tile.FLOOR);
+	    		case "21": //Exterior Door
+	    			ret[i][j] = new Tile(Tile.EXTERIOR_DOOR);
 	    		}
-	    		 System.out.println(x);
+	    		
 	    	}
 	    }
 	       
