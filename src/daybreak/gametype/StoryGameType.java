@@ -5,7 +5,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * TODO Add description
+ * Move from room to room as time or
+ * kills allow you to progress.
  */
 public class StoryGameType extends GameType
 {
