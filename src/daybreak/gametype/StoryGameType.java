@@ -6,7 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import daybreak.utils.mapParser;
+import daybreak.utils.MapParser;
 
 /**
  * Move from room to room as time or
@@ -31,7 +31,7 @@ public class StoryGameType extends GameType
 		System.out.println("spider-man, spider-man put the time into it");
 		try
 		{
-			map = mapParser.parseStoryMap();
+			map = MapParser.parseStoryMap();
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
