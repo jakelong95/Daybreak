@@ -18,6 +18,7 @@ public class Tile
 	public boolean isBlocked; //If true, we cannot walk or shoot through this.
 	
 	public static Image[] tileGFX; //Array of tiles to populate base.
+	public static Image blackTile; //Just a black image
 	
 	public void setTileType(int tileType)
 	{
@@ -31,9 +32,11 @@ public class Tile
 		tileGFX = new Image[3]; 
 		
 		//Load the tile images
-		tileGFX[FLOOR] = new Image("gfx/Floor.png");
-		tileGFX[WALL] = new Image("gfx/Wall.png");
-		tileGFX[DOOR] = new Image("gfx/Door.png");
+		tileGFX[FLOOR] = new Image("gfx/Floor.bmp");
+		tileGFX[WALL] = new Image("gfx/Wall.bmp");
+		tileGFX[DOOR] = new Image("gfx/Door.bmp");
+		
+		blackTile = new Image("gfx/Black.bmp");
 	}
 }
 
