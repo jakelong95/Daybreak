@@ -95,7 +95,7 @@ public abstract class Entity
 	 * Updates this entity. Perform any logic and calculations here.
 	 * @param delta Time since last update in milliseconds
 	 */
-	public abstract void update(int delta);
+	public abstract void update(int deltaTime);
 	
 	/**
 	 * Renders this entity's image.
