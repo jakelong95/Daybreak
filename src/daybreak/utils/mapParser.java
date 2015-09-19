@@ -31,12 +31,32 @@ public class mapParser
 	   
 	    Tile[][] ret = new Tile[80][20];
 	    
-	    for (String[] t : resolvedData)
+	   // String[][] tempArr = (String[][]) resolvedData.toArray();
+	    String[][] tempArr = resolvedData.toArray(new String[0][0]);
+	    
+	    for (int i = 0; i < tempArr.length; i++)
 	    {
-	    	for(String x : t)
+	    	for(int j = 0; j < tempArr[0].length; j++)
 	    	{
+	    		System.out.println("i: " + i + "j: " + j);
+	    		switch(tempArr[i][j])
+	    		{
+	    		case "-1"://No tile
+	    			break;
+	    		case "2": //wall
+	    			ret[j][i] = new Tile(Tile.WALL);
+	    			break;
+	    		case "13": //Interior Door
+	    			ret[j][i] = new Tile(Tile.INTERIOR_DOOR);
+	    			break;
+	    		case "18": //Floor
+	    			ret[j][i] = new Tile(Tile.FLOOR);
+	    			break;
+	    		case "21": //Exterior Door
+	    			ret[j][i] = new Tile(Tile.EXTERIOR_DOOR);
+	    			break;
+	    		}
 	    		
-	    		 System.out.println(x);
 	    	}
 	    }
 	       
@@ -58,15 +78,15 @@ public class mapParser
 //		return ret;
 		
 	}
-	public static void main(String[] args)
-	{
-		try
-		{
-			parseStoryMap();
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args)
+//	{
+//		try
+//		{
+//			parseStoryMap();
+//		} catch (FileNotFoundException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }

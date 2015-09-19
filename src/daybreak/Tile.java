@@ -39,6 +39,7 @@ public class Tile
 	//There is no error handling here
 	public Tile(int tileType)
 	{
+		System.out.println(tileType);
 		terrainType = tileType;
 		tileImage = tileGFX[tileType];
 	
@@ -57,6 +58,10 @@ public class Tile
 			canEnemyPass = true;
 			canPlayerPass = false;
 			canShootThrough = true;
+		case INTERIOR_DOOR:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
 		}
 		
 		entity = null;
@@ -70,6 +75,7 @@ public class Tile
 	
 	public static void loadTiles() throws SlickException
 	{
+		System.out.println("hit epic of gilgamesh stuff long string easy to see mark zuckerberg");
 		//Create the array of tile images
 		tileGFX = new Image[4]; 
 		
