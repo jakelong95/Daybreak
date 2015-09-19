@@ -17,19 +17,9 @@ public class Room {
 	 * Initialize a room with the given parameters
 	 */
 	public Room(int width, int height, int numOpenings){
-		this.width = width;
-		this.height = height;
-		
-		if (width <= 2){
-			this.width = 3;
-		}
-		if (height <= 2){
-			this.height = 2;
-		}
-
+		this.width = (width <= 2) ? 3 : width;
+		this.height = (height <= 2) ? 3 : height;
 		this.numOpenings = numOpenings;
-		setIndexes(new Pair[2*(this.width) + 2*(this.height - 2)]);
-		setOpeningIndexes(new Pair[this.numOpenings]);
 	}
 	
 	/**
@@ -48,6 +38,21 @@ public class Room {
 	}
 	
 	/**
+	 * Set this rooms width to the given width
+	 */
+	public void setWidth(int width){
+		this.width = width;
+	}
+	
+	
+	/**
+	 * Set this rooms height to the given height
+	 */
+	public void setHeight( int height){
+		this.height = height;
+	}
+	
+	/**
 	 * @return this room's number of openings
 	 */
 	public int getNumOpenings(){
@@ -62,7 +67,7 @@ public class Room {
 	 * Will set the indices array with the given pair values
 	 */
 	public void setPair(int i, int j, int pos){
-		if (pos > getIndexes().length) return;
+		if (pos > getIndexes().length - 1) return;
 		this.getIndexes()[pos] = new Pair(i, j);
 	}
 
@@ -79,6 +84,8 @@ public class Room {
 	 */
 	public void setIndexes(Pair[] indexes) {
 		this.indexes = indexes;
+		this.numOpenings = (numOpenings > indexes.length) ? 10 : numOpenings;
+		setOpeningIndexes(new Pair[this.numOpenings]);
 	}
 	
 	/**
