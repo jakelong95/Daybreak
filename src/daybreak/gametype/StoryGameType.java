@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import daybreak.Tile;
 import daybreak.utils.MapParser;
 
 /**
@@ -19,6 +20,9 @@ public class StoryGameType extends GameType
 	private boolean thirdRoom = false;
 	private boolean fourthRoom = false;
 	private boolean fifthRoom = false;
+	private boolean sixthRoom = false;
+	private long corridorTime = 0; //Time we enter the corridor
+	private long corridorDelay = 15000; //Number of milliseconds we make them wait for the corridor. Start at 15 seconds
 
 	public StoryGameType()
 	{
@@ -37,7 +41,6 @@ public class StoryGameType extends GameType
 			e.printStackTrace();
 		}
 		
-
 		player.setPosition(70, 10);
 	}
 
@@ -45,10 +48,42 @@ public class StoryGameType extends GameType
 	public void update(int deltaTime)
 	{
 		elapsedTime += deltaTime;
-		if(!secondRoom && elapsedTime > 3 * 60 * 1000 )//If we haven't reached the second room after 3 minutes, open the doors
+		if(!secondRoom && (elapsedTime > 3 * 60 * 1000 ))//If we haven't reached the second room after 3 minutes, open the doors
 		{
-			
+			//Change the first doors into walkables.
+			map[9][63].setTileType(Tile.FLOOR);//.setTileType(Tile.FLOOR);
+			map[12][63].setTileType(Tile.FLOOR);
+			secondRoom = true;
 		}
+		if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
+		{
+			//Change the second doors into walkables.
+			map[7][54].setTileType(Tile.FLOOR);
+
+			thirdRoom = true;
+		}
+		if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
+		{
+			//Change the second doors into walkables.
+			map[8][40].setTileType(Tile.FLOOR);
+			map[12][40].setTileType(Tile.FLOOR);
+			fourthRoom = true;
+		}
+		//Open the right side of the corridor
+		if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
+		{
+			//Change the second doors into walkables.
+			map[10][30].setTileType(Tile.FLOOR);
+			corridorTime = elapsedTime;
+			fifthRoom = true;
+		}
+		//After the delay open the left side of the corridor
+		if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
+		{
+			map[10][16].setTileType(Tile.FLOOR);
+			sixthRoom = true;
+		}
+
 		
 		//TODO Perform game logic here
 	}

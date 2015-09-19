@@ -29,10 +29,10 @@ public class MapParser
 	    // 2nd, parses all rows from the CSV file into a 2-dimensional array
 	    List<String[]> resolvedData = parser.parseAll(new FileReader("maps/storyMap.csv"));
 	   
-	    Tile[][] ret = new Tile[20][80];
-	    
-	   // String[][] tempArr = (String[][]) resolvedData.toArray();
+	    //Convert to array for easier traversal
 	    String[][] tempArr = resolvedData.toArray(new String[0][0]);
+	    
+	    Tile[][] ret = new Tile[20][80];
 	    
 	    for (int i = 0; i < tempArr.length - 1; i++)
 	    {

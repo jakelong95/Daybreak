@@ -70,6 +70,31 @@ public class Tile
 	{
 		terrainType = tileType;
 		tileImage = tileGFX[tileType];
+		
+		switch(tileType)
+		{
+		case FLOOR:
+			canEnemyPass = true;
+			canPlayerPass = true;
+			canShootThrough = true;
+			break;
+		case WALL:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
+			break;
+		case EXTERIOR_DOOR://Enemies can pass, player cannot. 
+			canEnemyPass = true;
+			canPlayerPass = false;
+			canShootThrough = true;
+			break;
+		case INTERIOR_DOOR:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
+			break;
+		}
+		
 	}
 	
 	public static void loadTiles() throws SlickException
