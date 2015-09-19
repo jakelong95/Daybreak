@@ -21,6 +21,13 @@ public class Tile
 	public static Image[] tileGFX; //Array of tiles to populate base.
 	public static Image blackTile; //Just a black image
 	
+	public Tile()
+	{
+		//Default to a passable tile
+		isBlocked = false;
+		canPlayerPass = true;
+	}
+	
 	public void setTileType(int tileType)
 	{
 		terrainType = tileType;
