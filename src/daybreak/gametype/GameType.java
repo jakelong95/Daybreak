@@ -64,7 +64,8 @@ public abstract class GameType extends BasicGameState
 				
 				//Make sure the tile exists
 				if(playerY + y < 0 || playerY + y >= map.length ||
-				   playerX + x < 0 || playerX + x >= map[0].length)
+				   playerX + x < 0 || playerX + x >= map[0].length
+				   || map[playerY + y][playerX + x] == null)
 				{
 					//If it doesn't, use a black tile
 					img = Tile.blackTile;

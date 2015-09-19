@@ -6,13 +6,17 @@ import static org.newdawn.slick.Input.*;
 
 /**
  * Represents the player.
- * 
- * @author Jacob Long
  */
 public class Player extends Entity
 {
 	//Reference to the input manager
 	private Input input;
+
+	//Time since input was last polled
+	private long timeSinceLastUpdate;
+	
+	//Time (in milliseconds) between each input poll
+	private static final int UPDATE_PERIOD = 100;
 	
 	/**
 	 * Creates a new player.
@@ -21,8 +25,8 @@ public class Player extends Entity
 	public Player(Tile[][] map)
 	{
 		super(map);
-		
-		this.input = input;
+
+		timeSinceLastUpdate = 0;
 	}
 
 	//How many vamps the player has killed
@@ -33,6 +37,16 @@ public class Player extends Entity
 	@Override
 	public void update(int deltaTime)
 	{
+		timeSinceLastUpdate += deltaTime;
+		
+		//Make sure input isn't polled too often
+		if(timeSinceLastUpdate < UPDATE_PERIOD)
+		{
+			return;
+		}
+		
+		timeSinceLastUpdate = 0;
+		
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
