@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -29,6 +30,8 @@ public abstract class GameType extends BasicGameState
 	public GameType()
 	{
 		player = new Player();
+		player.setPosX(5);
+		player.setPosY(5);
 		
 		entities = new LinkedList<Entity>();
 		entities.add(player);
@@ -56,7 +59,21 @@ public abstract class GameType extends BasicGameState
 		{
 			for(int y = -5; y <= 5; ++y)
 			{
-				graphics.drawImage(map[playerY + y][playerX + x].tileImage, (x + 5) * Daybreak.TILE_SIZE, (y + 5) * Daybreak.TILE_SIZE);
+				Image img = null;
+				
+				//Make sure the tile exists
+				if(playerY + y < 0 || playerY + y >= map.length ||
+				   playerX + x < 0 || playerX + x >= map[0].length)
+				{
+					//If it doesn't, use a black tile
+					img = Tile.blackTile;
+				}
+				else
+				{
+					img = map[playerY + y][playerX + x].tileImage;
+				}
+				
+				graphics.drawImage(img, (x + 5) * Daybreak.TILE_SIZE, (y + 5) * Daybreak.TILE_SIZE);
 			}
 		}
 		
