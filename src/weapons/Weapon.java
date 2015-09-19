@@ -1,4 +1,4 @@
-package daybreak;
+package weapons;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.openal.Audio;
 

@@ -1,4 +1,4 @@
-package daybreak;
+package weapons;
 
 public class Crossbow extends Weapon
 {
