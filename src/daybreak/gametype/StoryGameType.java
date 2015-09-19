@@ -10,9 +10,15 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StoryGameType extends GameType
 {
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException
+	public void init()
 	{
 		//TODO Create map here
+	}
+
+	@Override
+	public void update(int deltaTime)
+	{
+		//TODO Perform game logic here
 	}
 
 	@Override
