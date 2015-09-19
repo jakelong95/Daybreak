@@ -9,6 +9,6 @@ public class Crossbow extends Weapon
 		ammoCapacity = 1;
 		isMelee = false;
 		twoHanded = true;
-		int maxRange = 5;
+		maxRange = 5;
 	}
 }
