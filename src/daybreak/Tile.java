@@ -16,6 +16,7 @@ public class Tile
 	//public Rectangle SrcRect; //The source from which we get the tile (may be unecessary?)
 	//public Vector2d Location //Where we will draw it on screen.
 	public boolean isBlocked; //If true, we cannot walk or shoot through this.
+	public boolean canPlayerPass; //If true, the player cannot pass through the tile
 	
 	public static Image[] tileGFX; //Array of tiles to populate base.
 	public static Image blackTile; //Just a black image
