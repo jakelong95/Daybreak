@@ -1,7 +1,10 @@
 package daybreak;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Represents an enemy (a vampire). 
@@ -19,16 +22,21 @@ public class Enemy extends Entity
 	private static final int MOVE_TIME = 100;
 	
 	//List of movements to take in (x,y) format
-	private Queue<int[]> movements;
+	private Stack<Coordinate> movements;
 	
-	public Enemy(Tile[][] map)
+	//Reference to the player
+	private Player player;
+	
+	public Enemy(Tile[][] map, Player player)
 	{
 		super(map);
 		
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
 		
-		movements = new LinkedList<int[]>();
+		movements = new Stack<Coordinate>();
+		
+		this.player = player;
 	}
 
 	@Override
@@ -37,12 +45,15 @@ public class Enemy extends Entity
 		timeSinceCalculation += deltaTime;
 		timeSinceMove += deltaTime;
 		
-		//Is it time to move?
-		if(timeSinceMove >= MOVE_TIME)
+		//Is it time to move?/ is there a movement calculated?
+		if(timeSinceMove >= MOVE_TIME && movements.peek() != null)
 		{
 			timeSinceMove = 0;
 			
-			//TODO Move
+			//move will be the new coordinates in (x,y) format
+			Coordinate move = movements.pop();
+			
+			setPosition(move.x, move.y);
 		}
 		
 		//Is it time to recalculate the path?
@@ -50,7 +61,119 @@ public class Enemy extends Entity
 		{
 			timeSinceCalculation = 0;
 			
-			//TODO Calculate path
+			calculatePath();
+		}
+	}
+
+	/**
+	 * Calculates a path to the player.
+	 */
+	private void calculatePath()
+	{
+		//Previous coordinate used to reach each coordinate along the path
+		Map<Coordinate, Coordinate> pred = new HashMap<Coordinate, Coordinate>();
+		
+		//Whether or not a coordinate set has been visited
+		boolean[][] visited = new boolean[map.length][map[0].length];
+		
+		//Default to no coordinates having been visited
+		for(int n = 0; n < visited.length; ++n)
+		{
+			for(int i = 0; i < visited[0].length; ++n)
+			{
+				visited[n][i] = false;
+			}
+		}
+		
+		//Destination coordinates (player's location)
+		Coordinate dest = new Coordinate();
+		dest.x = player.getPosX();
+		dest.y = player.getPosX();
+		
+		//Coordinates to check
+		Queue<Coordinate> toCheck = new LinkedList<Coordinate>();
+		
+		Coordinate cur = new Coordinate();
+		cur.x = posX;
+		cur.y = posY;
+		
+		visited[cur.y][cur.x] = true;
+		pred.put(cur, null);
+		pred.put(dest, null);
+		
+		toCheck.add(cur);
+		
+		boolean complete = false; //Whether or not the destination has been reached
+		
+		//Keep going until we run out of coordinates to check
+		while(!toCheck.isEmpty() && !complete)
+		{
+			cur = toCheck.poll();
+			
+			//Check each orthogonal neighbor of cur
+			for(int x = -1; x <= 1; x +=2) //Only check -1 and 1
+			{
+				for(int y = -1; y <= 1; y += 2) //Only check -1 and 1
+				{
+					//If we already visited the coordinate, don't recheck it
+					if(visited[cur.y + y][cur.x + x])
+					{
+						continue;
+					}
+					
+					Coordinate newCoord = new Coordinate();
+					newCoord.x = cur.x + x;
+					newCoord.y = cur.y + y;
+					
+					visited[newCoord.y][newCoord.x] = true;
+					
+					pred.put(newCoord, cur);
+					
+					toCheck.add(newCoord);
+					
+					//Check if we're finished
+					if(newCoord.equals(dest))
+					{
+						complete = true;
+						break;
+					}
+				}
+				
+				if(complete)
+				{
+					break;
+				}
+			}
+		} //end while
+		
+		//Construct the path as a stack
+		movements.clear(); //Clear any previous data
+		
+		cur = dest;
+		
+		while(pred.get(cur) != null)
+		{
+			movements.push(cur);
+			cur = pred.get(cur);
+		}
+	}
+	
+	/**
+	 * Represents a coordinate in the map.
+	 */
+	private class Coordinate
+	{
+		public int x;
+		public int y;
+		
+		/**
+		 * Checks if this Coordinate is at the same location as the specified Coordinate.
+		 * @param other Coordinate to compare to.
+		 * @return True if the Coordinates are at the same location.
+		 */
+		public boolean equals(Coordinate other)
+		{
+			return (this.x == other.x) && (this.y == other.y);
 		}
 	}
 }
