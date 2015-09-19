@@ -4,6 +4,14 @@ import org.newdawn.slick.*;
 
 public class Daybreak extends BasicGame
 {
+	//Width of the game
+	public static final int WIDTH = 500;
+	//Height of the game
+	public static final int HEIGHT = 500;
+	
+	//Target frame rate
+	public static final int FPS = 60;
+	
 	public static void main(String[] args)
 	{
 		try
@@ -11,6 +19,8 @@ public class Daybreak extends BasicGame
 			//Load the game
 			AppGameContainer container = new AppGameContainer(new Daybreak());
 			container.setDisplayMode(500, 500, false);
+			container.setTargetFrameRate(FPS);
+			container.setShowFPS(false);
 			container.start();
 		}
 		catch(SlickException e)
