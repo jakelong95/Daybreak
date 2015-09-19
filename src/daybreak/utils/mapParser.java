@@ -31,7 +31,8 @@ public class mapParser
 	   
 	    Tile[][] ret = new Tile[80][20];
 	    
-	    String[][] tempArr = (String[][]) resolvedData.toArray();
+	   // String[][] tempArr = (String[][]) resolvedData.toArray();
+	    String[][] tempArr = resolvedData.toArray(new String[0][0]);
 	    
 	    for (int i = 0; i < tempArr.length; i++)
 	    {
