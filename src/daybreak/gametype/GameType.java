@@ -22,7 +22,7 @@ public abstract class GameType extends BasicGameState
 	//List of entities in the game
 	protected LinkedList<Entity> entities;
 	
-	//Array containg the map
+	//Array containing the map
 	protected Tile[][] map;
 	
 	protected Player player;
@@ -30,6 +30,7 @@ public abstract class GameType extends BasicGameState
 	public GameType(int mapWidth, int mapHeight)
 	{
 		map = new Tile[mapHeight][mapWidth];
+		
 		player = new Player(map);
 	}
 	
@@ -43,7 +44,6 @@ public abstract class GameType extends BasicGameState
 		player.setInput(container.getInput());
 		
 		entities = new LinkedList<Entity>();
-		entities.add(player);
 	}
 	
 	public abstract void init();
@@ -75,20 +75,24 @@ public abstract class GameType extends BasicGameState
 					img = map[playerY + y][playerX + x].tileImage;
 				}
 				
-				graphics.drawImage(img, (x + 5) * Daybreak.TILE_SIZE, (y + 5) * Daybreak.TILE_SIZE);
+				graphics.drawImage(img, (x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
 			}
 		}
 		
+		player.render();
+		
 		//Draw each entity
-//		for(Entity e : entities)
-//		{
-//			e.render();
-//		}
+		for(Entity e : entities)
+		{
+			//TODO Calculate position on screen (if it's there)
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int deltaTime) throws SlickException
 	{
+		player.update(deltaTime);
+		
 		//Update each entity
 		for(Entity e : entities)
 		{
