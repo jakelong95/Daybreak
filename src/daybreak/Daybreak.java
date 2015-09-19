@@ -1,16 +1,22 @@
 package daybreak;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class Daybreak extends BasicGame
+public class Daybreak extends StateBasedGame
 {
 	//Width of the game
-	public static final int WIDTH = 500;
+	public static final int WIDTH = 640;
 	//Height of the game
-	public static final int HEIGHT = 500;
+	public static final int HEIGHT = 640;
 	
 	//Target frame rate
 	public static final int FPS = 60;
+	
+	//Size of each tile in the map
+	public static final int TILE_SIZE = 64;
 	
 	public static void main(String[] args)
 	{
@@ -33,36 +39,10 @@ public class Daybreak extends BasicGame
 	{
 		super("Daybreak");
 	}
-
-	/**
-	 * Initializes the game. Loads resources.
-	 * @param container Container for the game.
-	 */
-	@Override
-	public void init(GameContainer container) throws SlickException
-	{
-		
-	}
 	
-	/**
-	 * Renders images to the screen.
-	 * @param container Container for the game.
-	 * @param graphics Graphics context used to render.
-	 */
 	@Override
-	public void render(GameContainer container, Graphics graphics) throws SlickException
+	public void initStatesList(GameContainer arg0) throws SlickException
 	{
-		
-	}
-
-	/**
-	 * Updates game objects.
-	 * @param container Container holding the game.
-	 * @param delta Amount of time that has passed since the last update in milliseconds.
-	 */
-	@Override
-	public void update(GameContainer container, int delta) throws SlickException
-	{
-		
+		//Initialize all of the states for the game
 	}
 }
