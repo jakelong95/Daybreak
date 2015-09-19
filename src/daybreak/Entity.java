@@ -4,8 +4,6 @@ import org.newdawn.slick.Image;
 
 /**
  * Represents an entity in the game.
- *
- * @author Jacob Long
  */
 public abstract class Entity
 {

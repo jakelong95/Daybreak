@@ -6,8 +6,6 @@ import static org.newdawn.slick.Input.*;
 
 /**
  * Represents the player.
- * 
- * @author Jacob Long
  */
 public class Player extends Entity
 {
