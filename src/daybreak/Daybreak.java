@@ -46,6 +46,6 @@ public class Daybreak extends StateBasedGame
 	public void initStatesList(GameContainer arg0) throws SlickException
 	{
 		//Initialize all of the states for the game
-		addState(new TestGameType());
+		addState(new TestGameType(11, 11));
 	}
 }
