@@ -38,7 +38,7 @@ public class StoryGameType extends GameType
 		}
 		
 
-		player.setPosition(75, 10);
+		player.setPosition(70, 10);
 	}
 
 	@Override
