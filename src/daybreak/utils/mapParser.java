@@ -35,7 +35,13 @@ public class mapParser
 	    {
 	    	for(String x : t)
 	    	{
-	    		
+	    		switch(x)
+	    		{
+	    		case "-1"://No tile
+	    			break;
+	    		case "2":
+	    			
+	    		}
 	    		 System.out.println(x);
 	    	}
 	    }
