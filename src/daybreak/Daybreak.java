@@ -5,12 +5,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import daybreak.gametype.TestGameType;
+
 public class Daybreak extends StateBasedGame
 {
 	//Width of the game
-	public static final int WIDTH = 640;
+	public static final int WIDTH = 576;
 	//Height of the game
-	public static final int HEIGHT = 640;
+	public static final int HEIGHT = 576;
 	
 	//Target frame rate
 	public static final int FPS = 60;
@@ -24,7 +26,7 @@ public class Daybreak extends StateBasedGame
 		{
 			//Load the game
 			AppGameContainer container = new AppGameContainer(new Daybreak());
-			container.setDisplayMode(500, 500, false);
+			container.setDisplayMode(WIDTH, HEIGHT, false);
 			container.setTargetFrameRate(FPS);
 			container.setShowFPS(false);
 			container.start();
@@ -44,5 +46,6 @@ public class Daybreak extends StateBasedGame
 	public void initStatesList(GameContainer arg0) throws SlickException
 	{
 		//Initialize all of the states for the game
+		addState(new TestGameType());
 	}
 }
