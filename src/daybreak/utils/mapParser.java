@@ -11,11 +11,11 @@ import com.univocity.parsers.csv.CsvParserSettings;
 
 import daybreak.Tile;
 
-public class mapParser
+public class MapParser
 {
 	File file;
 	//Never used
-	public mapParser(File newFile)
+	public MapParser(File newFile)
 	{
 		file = newFile;
 	}
