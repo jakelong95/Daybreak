@@ -23,12 +23,17 @@ public class Tile
 	public static Image[] tileGFX; //Array of tiles to populate base.
 	public static Image blackTile; //Just a black image
 	
+	//The entity that is in the tile
+	public Entity entity;
+	
 	public Tile()
 	{
 		//Default to a passable tile
 		canEnemyPass = false;
 		canPlayerPass = true;
 		canShootThrough = true;
+		
+		entity = null;
 	}
 	
 	//There is no error handling here
@@ -54,8 +59,7 @@ public class Tile
 			canShootThrough = true;
 		}
 		
-		
-		
+		entity = null;
 	}
 	
 	public void setTileType(int tileType)
