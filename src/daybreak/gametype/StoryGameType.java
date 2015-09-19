@@ -9,6 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StoryGameType extends GameType
 {
+	public StoryGameType(int mapWidth, int mapHeight)
+	{
+		super(mapWidth, mapHeight);
+	}
+
 	@Override
 	public void init()
 	{

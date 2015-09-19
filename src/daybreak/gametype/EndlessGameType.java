@@ -9,6 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class EndlessGameType extends GameType
 {
+	public EndlessGameType(int mapWidth, int mapHeight)
+	{
+		super(mapWidth, mapHeight);
+	}
+
 	@Override
 	public void init()
 	{

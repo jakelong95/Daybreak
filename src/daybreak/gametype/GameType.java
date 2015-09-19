@@ -27,14 +27,10 @@ public abstract class GameType extends BasicGameState
 	
 	protected Player player;
 	
-	public GameType()
+	public GameType(int mapWidth, int mapHeight)
 	{
-		player = new Player();
-		player.setPosX(5);
-		player.setPosY(5);
-		
-		entities = new LinkedList<Entity>();
-		entities.add(player);
+		map = new Tile[mapHeight][mapWidth];
+		player = new Player(map);
 	}
 	
 	@Override
@@ -43,6 +39,11 @@ public abstract class GameType extends BasicGameState
 		Tile.loadTiles();
 		
 		init();
+		
+		player.setInput(container.getInput());
+		
+		entities = new LinkedList<Entity>();
+		entities.add(player);
 	}
 	
 	public abstract void init();
