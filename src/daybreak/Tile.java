@@ -67,12 +67,13 @@ public class Tile
 	public static void loadTiles() throws SlickException
 	{
 		//Create the array of tile images
-		tileGFX = new Image[3]; 
+		tileGFX = new Image[4]; 
 		
 		//Load the tile images
 		tileGFX[FLOOR] = new Image("gfx/Floor.bmp");
 		tileGFX[WALL] = new Image("gfx/Wall.bmp");
-		tileGFX[DOOR] = new Image("gfx/Door.bmp");
+		tileGFX[INTERIOR_DOOR] = new Image("gfx/Door.bmp");
+		tileGFX[EXTERIOR_DOOR] = tileGFX[INTERIOR_DOOR];
 		
 		blackTile = new Image("gfx/Black.bmp");
 	}
