@@ -29,34 +29,32 @@ public class MapParser
 	    // 2nd, parses all rows from the CSV file into a 2-dimensional array
 	    List<String[]> resolvedData = parser.parseAll(new FileReader("maps/storyMap.csv"));
 	   
-	    Tile[][] ret = new Tile[80][20];
+	    Tile[][] ret = new Tile[20][80];
 	    
 	   // String[][] tempArr = (String[][]) resolvedData.toArray();
 	    String[][] tempArr = resolvedData.toArray(new String[0][0]);
 	    
-	    for (int i = 0; i < tempArr.length; i++)
+	    for (int i = 0; i < tempArr.length - 1; i++)
 	    {
 	    	for(int j = 0; j < tempArr[0].length; j++)
 	    	{
-	    		System.out.println("i: " + i + "j: " + j);
 	    		switch(tempArr[i][j])
 	    		{
 	    		case "-1"://No tile
 	    			break;
 	    		case "2": //wall
-	    			ret[j][i] = new Tile(Tile.WALL);
+	    			ret[i][j] = new Tile(Tile.WALL);
 	    			break;
 	    		case "13": //Interior Door
-	    			ret[j][i] = new Tile(Tile.INTERIOR_DOOR);
+	    			ret[i][j] = new Tile(Tile.INTERIOR_DOOR);
 	    			break;
 	    		case "18": //Floor
-	    			ret[j][i] = new Tile(Tile.FLOOR);
+	    			ret[i][j] = new Tile(Tile.FLOOR);
 	    			break;
 	    		case "21": //Exterior Door
-	    			ret[j][i] = new Tile(Tile.EXTERIOR_DOOR);
+	    			ret[i][j] = new Tile(Tile.EXTERIOR_DOOR);
 	    			break;
 	    		}
-	    		
 	    	}
 	    }
 	       

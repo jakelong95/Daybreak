@@ -120,4 +120,13 @@ public class Player extends Entity
 		//Always render the player at the center of the screen
 		img.draw(4 * Daybreak.TILE_SIZE, 4 * Daybreak.TILE_SIZE);
 	}
+	
+	/**
+	 * Sets the reference to the map.
+	 * @param map Reference to the map.
+	 */
+	public void setMap(Tile[][] map)
+	{
+		this.map = map;
+	}
 }
