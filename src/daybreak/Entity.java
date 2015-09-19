@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 public abstract class Entity
 {
 	//The image to draw for the entity
-	private Image img;
+	protected Image img;
 	
 	//Location of the entity. These correspond to coordinates in a 2D array for the map
 	protected int posX;
@@ -117,12 +117,4 @@ public abstract class Entity
 	 * @param delta Time since last update in milliseconds
 	 */
 	public abstract void update(int deltaTime);
-	
-	/**
-	 * Renders this entity's image.
-	 */
-	public void render()
-	{
-		img.draw(posX * Daybreak.TILE_SIZE, posY * Daybreak.TILE_SIZE);
-	}
 }
