@@ -38,7 +38,6 @@ public class MapParser
 	    {
 	    	for(int j = 0; j < tempArr[0].length; j++)
 	    	{
-	    		System.out.println("i: " + i + "j: " + j);
 	    		switch(tempArr[i][j])
 	    		{
 	    		case "-1"://No tile
