@@ -62,7 +62,13 @@ public abstract class Entity
 	 */
 	public void setPosX(int posX)
 	{
+		//Mark that the entity moved from it's previous spot
+		map[posY][posX].entity = null;
+		
 		this.posX = posX;
+		
+		//Mark the entity's new location
+		map[posY][posX].entity = this;
 	}
 
 	/**
@@ -80,7 +86,13 @@ public abstract class Entity
 	 */
 	public void setPosY(int posY)
 	{
+		//Mark that the entity moved from it's previous spot
+		map[posY][posX].entity = null;
+		
 		this.posY = posY;
+		
+		//Mark the entity's new location
+		map[posY][posX].entity = this;
 	}
 
 	/**
@@ -90,8 +102,14 @@ public abstract class Entity
 	 */
 	public void setPosition(int x, int y)
 	{
-		posX = x;
-		posY = y;
+		//Mark that the entity moved from it's previous spot
+		map[posY][posX].entity = null;
+		
+		this.posX = x;
+		this.posY = y;
+		
+		//Mark the entity's new location
+		map[posY][posX].entity = this;
 	}
 	
 	/**

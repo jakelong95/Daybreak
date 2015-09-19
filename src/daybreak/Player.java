@@ -68,21 +68,17 @@ public class Player extends Entity
 		
 		timeSinceLastUpdate = 0;
 		
+		//The new positions of the player
+		int x = posX;
+		int y = posY;
+		
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
 			//Check if the player can move up
 			if(map[posY - 1][posX].canPlayerPass)
 			{
-				--posY;
-			}
-		}
-		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
-		{
-			//Check if the player can move left
-			if(map[posY][posX - 1].canPlayerPass)
-			{
-				--posX;
+				--y;
 			}
 		}
 		else if(input.isKeyDown(KEY_S) || input.isKeyDown(KEY_DOWN))
@@ -90,7 +86,16 @@ public class Player extends Entity
 			//Check if the player can move down
 			if(map[posY + 1][posX].canPlayerPass)
 			{
-				++posY;
+				++y;
+			}
+		}
+		
+		if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
+		{
+			//Check if the player can move left
+			if(map[posY][posX - 1].canPlayerPass)
+			{
+				--x;
 			}
 		}
 		else if(input.isKeyDown(KEY_D) || input.isKeyDown(KEY_RIGHT))
@@ -98,9 +103,11 @@ public class Player extends Entity
 			//Check if the player can move right
 			if(map[posY][posX + 1].canPlayerPass)
 			{
-				++posX;
+				++y;
 			}
 		}
+		
+		setPosition(x, y);
 	}
 	
 	/**
