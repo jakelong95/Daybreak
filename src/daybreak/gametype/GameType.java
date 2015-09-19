@@ -46,6 +46,8 @@ public abstract class GameType extends BasicGameState
 		player.setMap(map);
 		
 		entities = new LinkedList<Entity>();
+		
+		player.setMap(map);
 	}
 	
 	public abstract void init();
