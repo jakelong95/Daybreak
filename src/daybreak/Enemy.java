@@ -11,6 +11,11 @@ import java.util.Stack;
  */
 public class Enemy extends Entity
 {
+	public static final int DEFAULT_HEALTH = 5;
+	
+	//Damage to deal to the player
+	public static final int DAMAGE = 1;
+	
 	//Time since path was last calculated
 	private long timeSinceCalculation;
 	
@@ -44,6 +49,8 @@ public class Enemy extends Entity
 		this.player = player;
 		
 		calculatePath();
+		
+		setHealth(DEFAULT_HEALTH);
 	}
 
 	@Override
@@ -95,6 +102,7 @@ public class Enemy extends Entity
 			}
 			
 			//Next, attack the player
+			player.updateHealth(-DAMAGE);
 		}
 	}
 
