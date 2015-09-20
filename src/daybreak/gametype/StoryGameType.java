@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import daybreak.Daybreak;
 import daybreak.Tile;
 import daybreak.utils.MapParser;
 
@@ -91,6 +92,6 @@ public class StoryGameType extends GameType
 	@Override
 	public int getID()
 	{
-		return 0;
+		return Daybreak.STORY;
 	}
 }
