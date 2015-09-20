@@ -27,7 +27,7 @@ import daybreak.utils.MapParser;
  * Move from room to room as time or
  * kills allow you to progress.
  */
-public class StoryGameType extends GameType
+public class ArenaGameType extends GameType
 {
 	private long elapsedTime = 0; //Total time in milliseconds.
 	private boolean secondRoom = false; //Have we reached the second room?
@@ -59,7 +59,7 @@ public class StoryGameType extends GameType
 	}
 	
 	
-	public StoryGameType()
+	public ArenaGameType()
 	{
 		super(85, 20);
 	}
@@ -76,7 +76,7 @@ public class StoryGameType extends GameType
 	{
 		super.render(gc, sc, g);
 		int minuteAsMili = 60 * 1000;
-		 ttf.drawString(0,0,(totalTime - elapsedTime)/minuteAsMili + ":" + String.format("%02d", (totalTime - elapsedTime) % minuteAsMili / 1000  ));
+		 ttf.drawString(0,0,( elapsedTime)/minuteAsMili + ":" + String.format("%02d", ( elapsedTime) % minuteAsMili / 1000  ));
 		g.setColor(new Color(0,255,0));
 		Rectangle rect = new Rectangle(400, 0, 10* player.getHealth(), 20); //Location of our health bar.
 		 g.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -96,54 +96,6 @@ public class StoryGameType extends GameType
 	{
 		TimeSinceSpawn += deltaTime;
 		elapsedTime += deltaTime;
-		if(!secondRoom && (elapsedTime > 3 * 60 * 1000 ))//If we haven't reached the second room after 3 minutes, open the doors
-		{
-			//Change the first doors into walkables.
-			map[9][63].setTileType(Tile.FLOOR);//.setTileType(Tile.FLOOR);
-			map[12][63].setTileType(Tile.FLOOR);
-			//Change the exterior doors to be open.
-			openDoors.add(new XYPair(62, 4));
-			secondRoom = true;
-		}
-		else if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
-		{
-			//Change the second doors into walkables.
-			map[7][54].setTileType(Tile.FLOOR);
-			openDoors.add(new XYPair(46, 16));
-			thirdRoom = true;
-		}
-		else if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
-		{
-			//Change the second doors into walkables.
-			map[8][40].setTileType(Tile.FLOOR);
-			map[12][40].setTileType(Tile.FLOOR);
-			openDoors.add(new XYPair(35, 4));
-			openDoors.add(new XYPair(35, 16));
-			fourthRoom = true;
-		}
-		//Open the right side of the corridor
-		else if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
-		{
-			//Change the second doors into walkables.
-			map[10][30].setTileType(Tile.FLOOR);
-			corridorTime = elapsedTime;
-			openDoors.add(new XYPair(11, 18));
-			openDoors.add(new XYPair(2, 12));
-			openDoors.add(new XYPair(2, 8));
-			openDoors.add(new XYPair(11, 2));
-			fifthRoom = true;
-		}
-		//After the delay open the left side of the corridor
-		else if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
-		{
-			map[10][16].setTileType(Tile.FLOOR);
-			sixthRoom = true;
-		}
-		
-		if(elapsedTime == totalTime)
-		{
-			gameOver = true;
-		}
 		
 		//Spawn Enemeies;
 		if(TimeSinceSpawn >= SPAWNTIME)
@@ -152,6 +104,7 @@ public class StoryGameType extends GameType
 			Random random = new Random();
 			int door = random.nextInt(openDoors.size());
 			Enemy enemy = new Enemy(map, player);
+			System.out.println("x: " + openDoors.get(door).x + " y: " + openDoors.get(door).y);
 			enemy.setPosition(openDoors.get(door).x, openDoors.get(door).y);
 			
 			synchronized(entities)
@@ -172,7 +125,7 @@ public class StoryGameType extends GameType
 
 		try
 		{
-		map = MapParser.parseStoryMap(new File("maps/storyMap.csv"),20,80);
+		map = MapParser.parseStoryMap(new File("maps/arenaMap.csv"),20,20);
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -182,7 +135,10 @@ public class StoryGameType extends GameType
 		
 		player.setHealth(player.DEFAULT_HEALTH);
 		entities.clear();
-		openDoors.add(new XYPair(77, 10));
+		openDoors.add(new XYPair(9, 0));
+		openDoors.add(new XYPair(18, 9));
+		openDoors.add(new XYPair(0, 9));
+		openDoors.add(new XYPair(9, 18));
 		
 		
 		 font = new Font("Verdana", Font.BOLD, 20);
@@ -190,13 +146,13 @@ public class StoryGameType extends GameType
 		 gameOver = false; //Not strictly necessary, but I'm not taking chances.
 		
 		player.setMap(map);
-		player.setPosition(70, 10);
+		player.setPosition(0, 9);
 	}
 
 	
 	@Override
 	public int getID()
 	{
-		return Daybreak.STORY;
+		return Daybreak.ARENA;
 	}
 }

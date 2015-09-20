@@ -9,12 +9,13 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainMenu extends BasicGameState implements Game {
 
     private int playersChoice = 0;
-    private static final int NOCHOICES = 5;
+    private static final int NOCHOICES = 6;
     private static final int SURVIVAL = 0;
     private static final int ARCADE = 1;
-    private static final int LOAD = 2;
-    private static final int OPTIONS = 3;
-    private static final int QUIT = 4;
+    private static final int ARENA = 2;
+    private static final int LOAD = 3;
+    private static final int OPTIONS = 4;
+    private static final int QUIT = 5;
     private String[] playersOptions = new String[NOCHOICES];
     private boolean exit = false;
     private Font font;
@@ -53,9 +54,10 @@ public class MainMenu extends BasicGameState implements Game {
         foo = new TrueTypeFont(font, true);
         playersOptions[0] = "Survival";
         playersOptions[1] = "Arcade";
-        playersOptions[2] = "Load";
-        playersOptions[3] = "Options";
-        playersOptions[4] = "Quit";
+        playersOptions[2] = "Arena";
+        playersOptions[3] = "Load";
+        playersOptions[4] = "Options";
+        playersOptions[5] = "Quit";
 		
 		try
 		{
@@ -111,6 +113,9 @@ public class MainMenu extends BasicGameState implements Game {
             		break;
             	case OPTIONS:
             		sb.enterState(Daybreak.VICTORY);
+            		break;
+            	case ARENA:
+            		sb.enterState(Daybreak.ARENA);
             		break;
             }
         }

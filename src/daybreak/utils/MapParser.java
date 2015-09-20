@@ -13,26 +13,27 @@ import daybreak.Tile;
 
 public class MapParser
 {
-	File file;
+	//private  File file;
 	//Never used
-	public MapParser(File newFile)
+	public MapParser(/*File newFile*/)
 	{
-		file = newFile;
+		//file = newFile;
 	}
 	
 	//Takes in the exact parameters for storyMap.csv
-	public static Tile[][] parseStoryMap() throws FileNotFoundException
+	//Or any file using the same settings
+	public static Tile[][] parseStoryMap(File file, int width, int height) throws FileNotFoundException
 	{
 		// 1st, creates a CSV parser with the configs
 	    CsvParser parser = new CsvParser(new CsvParserSettings());
 
 	    // 2nd, parses all rows from the CSV file into a 2-dimensional array
-	    List<String[]> resolvedData = parser.parseAll(new FileReader("maps/storyMap.csv"));
+	    List<String[]> resolvedData = parser.parseAll(new FileReader(file));
 	   
 	    //Convert to array for easier traversal
 	    String[][] tempArr = resolvedData.toArray(new String[0][0]);
 	    
-	    Tile[][] ret = new Tile[20][80];
+	    Tile[][] ret = new Tile[height][width];
 	    
 	    for (int i = 0; i < tempArr.length - 1; i++)
 	    {
