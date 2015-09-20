@@ -22,7 +22,7 @@ public class Enemy extends Entity
 	
 	//How long to wait between calculations and moves in milliseconds
 	private static final int CALCULATION_TIME = 500;
-	private static final int MOVE_TIME = 100;
+	private static final int MOVE_TIME = 300;
 	private static final int ATTACK_TIME = 1000;
 	
 	//List of movements to take in (x,y) format
