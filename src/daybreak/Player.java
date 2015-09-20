@@ -9,9 +9,11 @@ import static org.newdawn.slick.Input.KEY_S;
 import static org.newdawn.slick.Input.KEY_UP;
 import static org.newdawn.slick.Input.KEY_W;
 
-import org.newdawn.slick.Image;
+import java.awt.Color;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  * Represents the player.
@@ -33,19 +35,7 @@ public class Player extends Entity
 	 */
 	public Player(Tile[][] map)
 	{
-		super(map);
-		
-		//For testing
-		//TODO Remove
-		try
-		{
-			img = new Image("gfx/Door.bmp");
-		} 
-		catch (SlickException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		super(map, "gfx/protagonist.bmp");
 		
 		timeSinceLastUpdate = 0;
 	}
@@ -68,39 +58,45 @@ public class Player extends Entity
 		
 		timeSinceLastUpdate = 0;
 		
+		//The new positions of the player
+		int x = posX;
+		int y = posY;
+		
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
 			//Check if the player can move up
-			if(map[posY - 1][posX].canPlayerPass)
+			if(map[posY - 1][posX].canPlayerPass && map[posY - 1][posX].entity == null)
 			{
-				--posY;
-			}
-		}
-		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
-		{
-			//Check if the player can move left
-			if(map[posY][posX - 1].canPlayerPass)
-			{
-				--posX;
+				--y;
 			}
 		}
 		else if(input.isKeyDown(KEY_S) || input.isKeyDown(KEY_DOWN))
 		{
 			//Check if the player can move down
-			if(map[posY + 1][posX].canPlayerPass)
+			if(map[posY + 1][posX].canPlayerPass && map[posY + 1][posX].entity == null)
 			{
-				++posY;
+				++y;
+			}
+		}
+		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
+		{
+			//Check if the player can move left
+			if(map[posY][posX - 1].canPlayerPass && map[posY][posX - 1].entity == null)
+			{
+				--x;
 			}
 		}
 		else if(input.isKeyDown(KEY_D) || input.isKeyDown(KEY_RIGHT))
 		{
 			//Check if the player can move right
-			if(map[posY][posX + 1].canPlayerPass)
+			if(map[posY][posX + 1].canPlayerPass && map[posY][posX + 1].entity == null)
 			{
-				++posX;
+				++x;
 			}
 		}
+		
+		setPosition(x, y);
 	}
 	
 	/**
@@ -118,7 +114,7 @@ public class Player extends Entity
 	public void render()
 	{
 		//Always render the player at the center of the screen
-		img.draw(4 * Daybreak.TILE_SIZE, 4 * Daybreak.TILE_SIZE);
+		getImage().draw(4 * Daybreak.TILE_SIZE, 4 * Daybreak.TILE_SIZE);
 	}
 	
 	/**
