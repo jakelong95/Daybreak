@@ -27,8 +27,10 @@ public class StoryGameType extends GameType
 	private boolean sixthRoom = false;
 	private long corridorTime = 0; //Time we enter the corridor
 	private long corridorDelay = 15000; //Number of milliseconds we make them wait for the corridor. Start at 15 seconds
+	long totalTime = 25*60*1000; //Time it takes to win the game.
 	Font font;
 	TrueTypeFont ttf;
+
 	
 	
 	public StoryGameType()
@@ -62,7 +64,6 @@ public class StoryGameType extends GameType
 	public void render(GameContainer gc, StateBasedGame sc, Graphics g) throws SlickException
 	{
 		super.render(gc, sc, g);
-		long totalTime = 25*60*1000;
 		int minuteAsMili = 60 * 1000;
 		 ttf.drawString(0,0,(totalTime - elapsedTime)/minuteAsMili + ":" + String.format("%02d", (totalTime - elapsedTime) % minuteAsMili / 1000  ));
 	}
@@ -80,14 +81,14 @@ public class StoryGameType extends GameType
 			map[12][63].setTileType(Tile.FLOOR);
 			secondRoom = true;
 		}
-		if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
+		else if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[7][54].setTileType(Tile.FLOOR);
 
 			thirdRoom = true;
 		}
-		if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
+		else if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[8][40].setTileType(Tile.FLOOR);
@@ -95,7 +96,7 @@ public class StoryGameType extends GameType
 			fourthRoom = true;
 		}
 		//Open the right side of the corridor
-		if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
+		else if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[10][30].setTileType(Tile.FLOOR);
@@ -103,11 +104,17 @@ public class StoryGameType extends GameType
 			fifthRoom = true;
 		}
 		//After the delay open the left side of the corridor
-		if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
+		else if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
 		{
 			map[10][16].setTileType(Tile.FLOOR);
 			sixthRoom = true;
 		}
+		
+		if(elapsedTime == totalTime)
+		{
+			//TOOD enter state: victory
+		}
+		//Note: We also need a death/ game over screen
 
 		
 	}
