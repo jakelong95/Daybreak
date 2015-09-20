@@ -34,7 +34,7 @@ public class Enemy extends Entity
 	 */
 	public Enemy(Tile[][] map, Player player)
 	{
-		super(map, "gfx/protagonist.bmp");
+		super(map, "gfx/Antagonist.bmp");
 		
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
@@ -60,7 +60,6 @@ public class Enemy extends Entity
 			calculatePath();
 		}
 		
-		System.out.printf("timeSinceMove = %d\n", timeSinceMove);
 		
 		//Is it time to move?/ is there a movement calculated?
 		if(timeSinceMove >= MOVE_TIME && movements.size() != 0)
@@ -94,17 +93,27 @@ public class Enemy extends Entity
 			}
 		}
 		
+		//Array of coordinates used to generate path
+		Coordinate[][] coordinates = new Coordinate[map.length][map[0].length];
+		
+		for(int n = 0; n < coordinates.length; ++n)
+		{
+			for(int i = 0; i < coordinates[0].length; ++i)
+			{
+				Coordinate coord = new Coordinate();
+				coord.x = i;
+				coord.y = n;
+				coordinates[n][i] = coord;
+			}
+		}
+		
 		//Destination coordinates (player's location)
-		Coordinate dest = new Coordinate();
-		dest.x = player.getPosX();
-		dest.y = player.getPosX();
+		Coordinate dest = coordinates[player.getPosY()][player.getPosX()];
 		
 		//Coordinates to check
 		Queue<Coordinate> toCheck = new LinkedList<Coordinate>();
 		
-		Coordinate cur = new Coordinate();
-		cur.x = posX;
-		cur.y = posY;
+		Coordinate cur = coordinates[posY][posX];
 		
 		visited[cur.y][cur.x] = true;
 		pred.put(cur, null);
@@ -120,7 +129,7 @@ public class Enemy extends Entity
 			cur = toCheck.poll();
 			
 			//Check each orthogonal neighbor of cur
-			for(int x = -1; x <= 1; x +=2) //Only check -1 and 1
+			for(int x = -1; x <= 1; ++x) //Only check -1 and 1
 			{
 				//Make sure nothing goes out of bounds
 				if(cur.x + x >= map[0].length || cur.x + x < 0)
@@ -128,28 +137,19 @@ public class Enemy extends Entity
 					continue;
 				}
 				
-				for(int y = -1; y <= 1; y += 2) //Only check -1 and 1
+				for(int y = -1; y <= 1; ++y) //Only check -1 and 1
 				{
-					//Make sure nothing goes out of bounds
-					if(cur.y + y >= map.length || cur.y + y < 0)
+					if((cur.y + y >= map.length || cur.y + y < 0) || //Make sure nothing goes out of bounds
+							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
+							!map[cur.y + y][cur.x + x].canEnemyPass || //Make sure the enemy can walk there
+							Math.abs(x) == Math.abs(y)) //Only check the orthogonals
 					{
 						continue;
 					}
-					
-					//If we already visited the coordinate, don't recheck it
-					if(visited[cur.y + y][cur.x + x])
-					{
-						continue;
-					}
-					
-					Coordinate newCoord = new Coordinate();
-					newCoord.x = cur.x + x;
-					newCoord.y = cur.y + y;
-					
+
+					Coordinate newCoord = coordinates[cur.y + y][cur.x + x];
 					visited[newCoord.y][newCoord.x] = true;
-					
 					pred.put(newCoord, cur);
-					
 					toCheck.add(newCoord);
 					
 					//Check if we're finished
@@ -173,10 +173,11 @@ public class Enemy extends Entity
 		//Check if a path was actually constructed
 		if(pred.get(dest) == null)
 		{
+			System.out.println("No path constructed.");
 			return;
 		}
 		
-		cur = dest;
+		cur = pred.get(dest); //Go to a square adjacent to the player
 		
 		while(pred.get(cur) != null)
 		{

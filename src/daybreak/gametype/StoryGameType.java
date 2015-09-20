@@ -3,6 +3,7 @@ package daybreak.gametype;
 import java.io.FileNotFoundException;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -41,9 +42,9 @@ public class StoryGameType extends GameType
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 		player.setMap(map);
-		player.setPosition(10, 10);
+		player.setPosition(70, 10);
 	}
 
 	@Override

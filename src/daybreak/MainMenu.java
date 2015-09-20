@@ -10,8 +10,8 @@ public class MainMenu extends BasicGameState implements Game {
 
     private int playersChoice = 0;
     private static final int NOCHOICES = 5;
-    private static final int START = 0;
-    private static final int SAVE = 1;
+    private static final int STORY = 0;
+    private static final int ARCADE = 1;
     private static final int LOAD = 2;
     private static final int OPTIONS = 3;
     private static final int QUIT = 4;
@@ -20,7 +20,8 @@ public class MainMenu extends BasicGameState implements Game {
     private Font font;
     private TrueTypeFont playersOptionsTTF, foo;
     private Color notChosen = new Color(153, 204, 255);
-
+	private Image background;
+    
     public MainMenu() {
         super();
     }
@@ -50,28 +51,39 @@ public class MainMenu extends BasicGameState implements Game {
         playersOptionsTTF = new TrueTypeFont(font, true);
         font = new Font ("Verdana", Font.PLAIN, 20);
         foo = new TrueTypeFont(font, true);
-        playersOptions[0] = "Start";
-        playersOptions[1] = "Save";
+        playersOptions[0] = "Story";
+        playersOptions[1] = "Arcade";
         playersOptions[2] = "Load";
         playersOptions[3] = "Options";
         playersOptions[4] = "Quit";
 		
+		try
+		{
+			background = new Image("gfx/menus/titleScreen.bmp");
+		} catch (SlickException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException
+	public void render(GameContainer gc, StateBasedGame sb, Graphics g) throws SlickException
 	{
-		 renderPlayersOptions();
+		g.drawImage(background, 0, 0);
+		renderPlayersOptions();
 	        if (exit) {
-	            arg0.exit();
+	            gc.exit();
 	        }
+	        
 		
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException
+	public void update(GameContainer gc, StateBasedGame sb, int arg2) throws SlickException
 	{
-	    Input input = arg0.getInput();
+	    Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_DOWN)) {
             if (playersChoice == (NOCHOICES - 1)) {
                 playersChoice = 0;
@@ -88,7 +100,10 @@ public class MainMenu extends BasicGameState implements Game {
         }
         if (input.isKeyPressed(Input.KEY_ENTER)) {
             switch (playersChoice) {
-                case QUIT:
+            	case STORY:
+            		sb.enterState(Daybreak.STORY);
+            		break;
+            	case QUIT:
                     exit = true;
                     break;
             }

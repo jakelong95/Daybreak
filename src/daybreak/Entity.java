@@ -115,7 +115,7 @@ public abstract class Entity
 	public void setPosition(int x, int y)
 	{
 		//Mark that the entity moved from it's previous spot
-		if(posX < 0 || posX >= map[0].length || posY < 0 || posY >= map.length)
+		if(map[posY][posX] != null)
 		{
 			map[posY][posX].entity = null;
 		}
