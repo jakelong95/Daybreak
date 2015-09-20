@@ -57,12 +57,13 @@ public abstract class GameType extends BasicGameState
 		int playerX = player.getPosX();
 		int playerY = player.getPosY();
 		
-		//Render each tile around the player
+		//Render each tile around the player, and any entities on the tile
 		for(int x = -5; x <=  5; ++x)
 		{
 			for(int y = -5; y <= 5; ++y)
 			{
 				Image img = null;
+				Image entityImage = null; //If there's an entity, render it here
 				
 				//Make sure the tile exists
 				if(playerY + y < 0 || playerY + y >= map.length ||
@@ -75,21 +76,20 @@ public abstract class GameType extends BasicGameState
 				else
 				{
 					img = map[playerY + y][playerX + x].tileImage;
+					entityImage = map[playerY + y][playerX + x].entity.getImage();
 				}
 				
 				graphics.drawImage(img, (x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
+				if(entityImage != null)
+				{
+					graphics.drawImage(entityImage, (x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
+				}
 			}
 		}
 		
 		player.render();
-		
-		//Draw each entity
-		for(Entity e : entities)
-		{
-			//TODO Calculate position on screen (if it's there)
-		}
 	}
-
+	
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int deltaTime) throws SlickException
 	{

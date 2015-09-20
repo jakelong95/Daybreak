@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.gametype.StoryGameType;
-import daybreak.gametype.TestGameType;
 
 public class Daybreak extends StateBasedGame
 {
