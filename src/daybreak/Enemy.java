@@ -18,7 +18,7 @@ public class Enemy extends Entity
 	private long timeSinceMove;
 	
 	//How long to wait between calculations and moves in milliseconds
-	private static final int CALCULATION_TIME = 3000;
+	private static final int CALCULATION_TIME = 500;
 	private static final int MOVE_TIME = 100;
 	
 	//List of movements to take in (x,y) format
@@ -27,16 +27,23 @@ public class Enemy extends Entity
 	//Reference to the player
 	private Player player;
 	
+	/**
+	 * Creates a new Enemy.
+	 * @param map Reference to the game map.
+	 * @param player Reference to the player.
+	 */
 	public Enemy(Tile[][] map, Player player)
 	{
-		super(map, "gfx/protoganist.bmp");
-		
+		super(map, "gfx/protagonist.bmp");
+
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
 		
 		movements = new Stack<Coordinate>();
 		
 		this.player = player;
+		
+		calculatePath();
 	}
 
 	@Override
@@ -45,23 +52,25 @@ public class Enemy extends Entity
 		timeSinceCalculation += deltaTime;
 		timeSinceMove += deltaTime;
 		
-		//Is it time to move?/ is there a movement calculated?
-		if(timeSinceMove >= MOVE_TIME && movements.peek() != null)
-		{
-			timeSinceMove = 0;
-			
-			//move will be the new coordinates in (x,y) format
-			Coordinate move = movements.pop();
-			
-			setPosition(move.x, move.y);
-		}
-		
 		//Is it time to recalculate the path?
 		if(timeSinceCalculation >= CALCULATION_TIME)
 		{
 			timeSinceCalculation = 0;
 			
 			calculatePath();
+		}
+		
+		System.out.printf("timeSinceMove = %d\n", timeSinceMove);
+		
+		//Is it time to move?/ is there a movement calculated?
+		if(timeSinceMove >= MOVE_TIME && movements.size() != 0)
+		{
+			timeSinceMove = 0;
+			
+			//Move will be the new coordinates in (x,y) format
+			Coordinate move = movements.pop();
+
+			setPosition(move.x, move.y);
 		}
 	}
 
@@ -79,7 +88,7 @@ public class Enemy extends Entity
 		//Default to no coordinates having been visited
 		for(int n = 0; n < visited.length; ++n)
 		{
-			for(int i = 0; i < visited[0].length; ++n)
+			for(int i = 0; i < visited[0].length; ++i)
 			{
 				visited[n][i] = false;
 			}
@@ -104,7 +113,7 @@ public class Enemy extends Entity
 		toCheck.add(cur);
 		
 		boolean complete = false; //Whether or not the destination has been reached
-		
+				
 		//Keep going until we run out of coordinates to check
 		while(!toCheck.isEmpty() && !complete)
 		{
@@ -113,8 +122,20 @@ public class Enemy extends Entity
 			//Check each orthogonal neighbor of cur
 			for(int x = -1; x <= 1; x +=2) //Only check -1 and 1
 			{
+				//Make sure nothing goes out of bounds
+				if(cur.x + x >= map[0].length || cur.x + x < 0)
+				{
+					continue;
+				}
+				
 				for(int y = -1; y <= 1; y += 2) //Only check -1 and 1
 				{
+					//Make sure nothing goes out of bounds
+					if(cur.y + y >= map.length || cur.y + y < 0)
+					{
+						continue;
+					}
+					
 					//If we already visited the coordinate, don't recheck it
 					if(visited[cur.y + y][cur.x + x])
 					{
@@ -145,9 +166,15 @@ public class Enemy extends Entity
 				}
 			}
 		} //end while
-		
+				
 		//Construct the path as a stack
 		movements.clear(); //Clear any previous data
+		
+		//Check if a path was actually constructed
+		if(pred.get(dest) == null)
+		{
+			return;
+		}
 		
 		cur = dest;
 		

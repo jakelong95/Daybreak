@@ -54,5 +54,6 @@ public class Daybreak extends StateBasedGame
 		//Initialize all of the states for the game
 		this.addState(new MainMenu());
 		this.addState(new StoryGameType());
+
 	}
 }
