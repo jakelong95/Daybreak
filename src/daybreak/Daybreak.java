@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import daybreak.gametype.ArenaGameType;
 import daybreak.gametype.StoryGameType;
 import daybreak.gametype.TestGameType;
 
@@ -17,6 +18,7 @@ public class Daybreak extends StateBasedGame
     public static final int ARCADE       = 2;
     public static final int GAMEOVER     = 3;
     public static final int VICTORY      = 4;
+    public static final int ARENA        = 5;
 	
 	//Width of the game
 	public static final int WIDTH = 576;
@@ -59,5 +61,6 @@ public class Daybreak extends StateBasedGame
 		addState(new StoryGameType());
 		addState(new GameOverMenu());
 		addState(new VictoryMenu());
+		addState(new ArenaGameType());
 	}
 }
