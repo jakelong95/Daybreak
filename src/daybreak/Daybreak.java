@@ -15,6 +15,8 @@ public class Daybreak extends StateBasedGame
     public static final int MAINMENU     = 0;
     public static final int STORY        = 1;
     public static final int ARCADE       = 2;
+    public static final int GAMEOVER     = 3;
+    public static final int VICTORY      = 4;
 	
 	//Width of the game
 	public static final int WIDTH = 576;
@@ -55,5 +57,7 @@ public class Daybreak extends StateBasedGame
 		//Initialize all of the states for the game
 		addState(new MainMenu());
 		addState(new StoryGameType());
+		addState(new GameOverMenu());
+		addState(new VictoryMenu());
 	}
 }
