@@ -23,12 +23,17 @@ public class Tile
 	public static Image[] tileGFX; //Array of tiles to populate base.
 	public static Image blackTile; //Just a black image
 	
+	//The entity that is in the tile
+	public Entity entity;
+	
 	public Tile()
 	{
 		//Default to a passable tile
 		canEnemyPass = false;
 		canPlayerPass = true;
 		canShootThrough = true;
+		
+		entity = null;
 	}
 	
 	//There is no error handling here
@@ -52,16 +57,44 @@ public class Tile
 			canEnemyPass = true;
 			canPlayerPass = false;
 			canShootThrough = true;
+		case INTERIOR_DOOR:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
 		}
 		
-		
-		
+		entity = null;
 	}
 	
 	public void setTileType(int tileType)
 	{
 		terrainType = tileType;
 		tileImage = tileGFX[tileType];
+		
+		switch(tileType)
+		{
+		case FLOOR:
+			canEnemyPass = true;
+			canPlayerPass = true;
+			canShootThrough = true;
+			break;
+		case WALL:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
+			break;
+		case EXTERIOR_DOOR://Enemies can pass, player cannot. 
+			canEnemyPass = true;
+			canPlayerPass = false;
+			canShootThrough = true;
+			break;
+		case INTERIOR_DOOR:
+			canEnemyPass = false;
+			canPlayerPass = false;
+			canShootThrough = false;
+			break;
+		}
+		
 	}
 	
 	public static void loadTiles() throws SlickException
@@ -70,11 +103,11 @@ public class Tile
 		tileGFX = new Image[4]; 
 		
 		//Load the tile images
-		tileGFX[FLOOR] = new Image("gfx/Floor.bmp");
-		tileGFX[WALL] = new Image("gfx/Wall.bmp");
-		tileGFX[INTERIOR_DOOR] = new Image("gfx/Door.bmp");
+		tileGFX[FLOOR] = new Image("gfx/tiles/Floor.bmp");
+		tileGFX[WALL] = new Image("gfx/tiles/Wall.bmp");
+		tileGFX[INTERIOR_DOOR] = new Image("gfx/tiles/Door.bmp");
 		tileGFX[EXTERIOR_DOOR] = tileGFX[INTERIOR_DOOR];
 		
-		blackTile = new Image("gfx/Black.bmp");
+		blackTile = new Image("gfx/tiles/Black.bmp");
 	}
 }

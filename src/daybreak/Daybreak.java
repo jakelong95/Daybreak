@@ -5,10 +5,16 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import daybreak.gametype.TestGameType;
+import daybreak.gametype.StoryGameType;
 
 public class Daybreak extends StateBasedGame
 {
+	
+    // Game state identifiers
+    public static final int MAINMENU     = 0;
+    public static final int STORY        = 1;
+    public static final int ARCADE       = 2;
+	
 	//Width of the game
 	public static final int WIDTH = 576;
 	//Height of the game
@@ -46,6 +52,8 @@ public class Daybreak extends StateBasedGame
 	public void initStatesList(GameContainer arg0) throws SlickException
 	{
 		//Initialize all of the states for the game
-		addState(new TestGameType(11, 11));
+		this.addState(new MainMenu());
+		this.addState(new StoryGameType());
+
 	}
 }
