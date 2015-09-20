@@ -23,13 +23,13 @@ public class Player extends Entity
 
 	//Time (in milliseconds) between each input poll
 	private static final int UPDATE_PERIOD = 100;
-	
+
 	//Reference to the input manager
 	private Input input;
 
 	//Time since input was last polled
 	private long timeSinceLastUpdate;
-	
+
 	private Weapon weapon;
 
 	/**
@@ -42,11 +42,11 @@ public class Player extends Entity
 		timeSinceLastUpdate = 0;
 
 		setHealth(DEFAULT_HEALTH);
-		
+
 		//TODO - No weapon at start, pickup as you go along
 		weapon = new Sword();
 	}
-	
+
 	//How many vamps the player has killed
 	//TODO Use this
 	private int killCount;
@@ -103,48 +103,6 @@ public class Player extends Entity
 				++x;
 			}
 		}
-		
-		Entity e = null;
-		
-		//Check if the player is facing any enemy
-		switch (direction)
-		{
-		
-		case Entity.DIRECTION_DOWN:
-			if(map[posY+1][posX].entity instanceof Enemy)
-			{
-				e = map[posY+1][posX].entity;
-			}
-			
-			break;
-		case Entity.DIRECTION_LEFT:
-			if(map[posY][posX-1].entity instanceof Enemy) 
-			{
-				e = map[posY][posX-1].entity;
-			}
-			
-			break;
-		case Entity.DIRECTION_RIGHT:
-			if(map[posY][posX+1].entity instanceof Enemy)
-			{
-				e = map[posY][posX+1].entity;
-			}
-			
-			break;
-		case Entity.DIRECTION_UP:
-			if(map[posY-1][posX].entity instanceof Enemy)
-			{
-				e = map[posY-1][posX].entity;
-			}
-			
-			break;
-		}
-		
-		//If the player was facing an enemy, damage the enemy
-		if(e != null)
-		{
-			e.updateHealth(weapon.damage);
-		}
 
 		setPosition(x, y);
 	}
@@ -174,5 +132,50 @@ public class Player extends Entity
 	public void setMap(Tile[][] map)
 	{
 		this.map = map;
+	}
+
+	public void attack()
+	{
+		Entity e = null;
+
+		//Check if the player is facing any enemy
+		switch (direction)
+		{
+
+		case Entity.DIRECTION_DOWN:
+			if(map[posY+1][posX].entity instanceof Enemy)
+			{
+				e = map[posY+1][posX].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_LEFT:
+			if(map[posY][posX-1].entity instanceof Enemy) 
+			{
+				e = map[posY][posX-1].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_RIGHT:
+			if(map[posY][posX+1].entity instanceof Enemy)
+			{
+				e = map[posY][posX+1].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_UP:
+			if(map[posY-1][posX].entity instanceof Enemy)
+			{
+				e = map[posY-1][posX].entity;
+			}
+
+			break;
+		}
+
+		//If the player was facing an enemy, damage the enemy
+		if(e != null)
+		{
+			e.updateHealth(weapon.damage);
+		}
 	}
 }
