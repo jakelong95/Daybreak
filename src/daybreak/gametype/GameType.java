@@ -102,6 +102,20 @@ public abstract class GameType extends BasicGameState
 		for(Entity e : entities)
 		{
 			e.update(deltaTime);
+
+			//Check if the entity died
+			if(e.getHealth() <= 0)
+			{
+				map[e.getPosY()][e.getPosX()].entity = null;
+				entities.remove(e);
+				e.playDeathSound();
+			}
+		}
+
+		//Did the player die?
+		if(player.getHealth() <= 0)
+		{
+			player.playDeathSound();
 		}
 
 		update(deltaTime);
