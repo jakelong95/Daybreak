@@ -6,15 +6,12 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MainMenu extends BasicGameState implements Game {
+public class GameOverMenu extends BasicGameState implements Game {
 
     private int playersChoice = 0;
-    private static final int NOCHOICES = 5;
-    private static final int SURVIVAL = 0;
-    private static final int ARCADE = 1;
-    private static final int LOAD = 2;
-    private static final int OPTIONS = 3;
-    private static final int QUIT = 4;
+    private static final int NOCHOICES = 2;
+    private static final int MENU = 0;
+    private static final int QUIT = 1;
     private String[] playersOptions = new String[NOCHOICES];
     private boolean exit = false;
     private Font font;
@@ -22,14 +19,14 @@ public class MainMenu extends BasicGameState implements Game {
     private Color notChosen = new Color(153, 204, 255);
 	private Image background;
     
-    public MainMenu() {
+    public GameOverMenu() {
         super();
     }
 
 //    public static void main(String[] args)
 //            throws SlickException {
 //        AppGameContainer app =
-//                new AppGameContainer(new MainMenu());
+//                new AppGameContainer(new GameOverMenu());
 //        app.setDisplayMode(576, 576, false);
 //        app.start();
 //    }
@@ -37,9 +34,9 @@ public class MainMenu extends BasicGameState implements Game {
     private void renderPlayersOptions() {
         for (int i = 0; i < NOCHOICES; i++) {
             if (playersChoice == i) {
-                playersOptionsTTF.drawString(100, i * 50 + 200, playersOptions[i]);
+                playersOptionsTTF.drawString(50, i * 50 + 350, playersOptions[i]);
             } else {
-                playersOptionsTTF.drawString(100, i * 50 + 200, playersOptions[i], notChosen);
+                playersOptionsTTF.drawString(50, i * 50 + 350, playersOptions[i], notChosen);
             }
         }
     }
@@ -51,15 +48,12 @@ public class MainMenu extends BasicGameState implements Game {
         playersOptionsTTF = new TrueTypeFont(font, true);
         font = new Font ("Verdana", Font.PLAIN, 20);
         foo = new TrueTypeFont(font, true);
-        playersOptions[0] = "Survival";
-        playersOptions[1] = "Arcade";
-        playersOptions[2] = "Load";
-        playersOptions[3] = "Options";
-        playersOptions[4] = "Quit";
+        playersOptions[0] = "Menu";
+        playersOptions[1] = "Quit";
 		
 		try
 		{
-			background = new Image("gfx/menus/titleScreen.bmp");
+			background = new Image("gfx/menus/gameOver.png");
 		} catch (SlickException e1)
 		{
 			// TODO Auto-generated catch block
@@ -100,18 +94,12 @@ public class MainMenu extends BasicGameState implements Game {
         }
         if (input.isKeyPressed(Input.KEY_ENTER)) {
             switch (playersChoice) {
-            	case SURVIVAL:
-            		sb.enterState(Daybreak.STORY);
+            	case MENU:
+            		sb.enterState(Daybreak.MAINMENU);
             		break;
             	case QUIT:
                     exit = true;
                     break;
-            	case LOAD:
-            		sb.enterState(Daybreak.GAMEOVER);
-            		break;
-            	case OPTIONS:
-            		sb.enterState(Daybreak.VICTORY);
-            		break;
             }
         }
 		
@@ -120,7 +108,7 @@ public class MainMenu extends BasicGameState implements Game {
 	@Override
 	public int getID()
 	{
-		return Daybreak.MAINMENU;
+		return Daybreak.GAMEOVER;
 	}
 
 	@Override
