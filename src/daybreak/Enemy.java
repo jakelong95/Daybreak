@@ -208,7 +208,6 @@ public class Enemy extends Entity
 		//Check if a path was actually constructed
 		if(pred.get(dest) == null)
 		{
-			System.out.println("No path constructed.");
 			return;
 		}
 		
