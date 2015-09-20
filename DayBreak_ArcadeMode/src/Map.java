@@ -115,7 +115,7 @@ public class Map {
 					pairIndex++;
 				}
 				else{
-					setTile = 0;
+					setTile = 2;
 					map[i][j] = setTile;
 				}
 			}
@@ -191,64 +191,74 @@ public class Map {
 		r.setIndexes(new Pair[2*(4) + 2*(4 - 2)]);
 		if (startY - 3 < 0) r.setOrigin(new Pair(startY, startY));
 		else  r.setOrigin(new Pair(startY - 3, startY));
-		r.setEnd(new Pair(endX, endY));
 		
 		if (size > 3){
 			if (detOrientation(p).equals("UP")){ System.out.println("hey");
 				for (int i = startY; i > startY - 4; i--){
 					for (int j = startX; j <= endX; j++){
 						if (map[i][j] instanceof Opening) continue;
-						if (i == startY - 3 || j == endX || j == startX){ 
+						map[i][j] = 2;
+						if (i == startY || i == startY - 3 || j == endX || j == startX){ 
 							map[i][j] = 1;
 							r.setPair(i, j, pairIndex);
 							pairIndex++;
 						}
 					}
 				}
-				genRandomOpen(r);
 			}
 			
 			else if (detOrientation(p).equals("LEFT")){
 				for (int i = startY; i <= endY; i++){
 					for (int j = startX; j > startX - 4; j--){
-						if (map[i][j] instanceof Opening) continue; // 
+						if (map[i][j] instanceof Opening) continue; 
+						
+						map[i][j] = 2;
+						
 						if (i == startY || i == endY || j == startX - 3 || j == startX){ 
 							map[i][j] = 1;	
 							r.setPair(i, j, pairIndex);
 							pairIndex++;
 						}
+
 					}
 				}
-				genRandomOpen(r);
 			}
 		
 			else if (detOrientation(p).equals("DOWN")){
 				for (int i = endY; i < endY + 4; i++){
 					for (int j = startX; j <= endX; j++){
 						if (map[i][j] instanceof Opening) continue;  
-						if (i == endY + 3 || j == endX || j == startX){ 
+
+						map[i][j] = 2;
+
+						if (i == endY || i == endY + 3 || j == endX || j == startX){ 
 							map[i][j] = 1;
 							r.setPair(i, j, pairIndex);
 							pairIndex++;
 						}
+
 					}
+
 			}
-			genRandomOpen(r);
 		}
 			
 			else if (detOrientation(p).equals("RIGHT")){
 				for (int i = startY; i <= endY; i++){
 					for (int j = endX; j < endX + 4; j++){
-						if (map[i][j] instanceof Opening) continue;  
-						if (i == startY || i == endY|| j == endX + 3 || j == startX){ 
+						if (map[i][j] instanceof Opening) continue;
+						
+						map[i][j] = 2;
+
+						if (i == startY || i == endY|| j == endX + 3 || j == endX){ 
+							System.out.println(endY);
 							map[i][j] = 1;
 							r.setPair(i, j, pairIndex);
 							pairIndex++;
 						}
 					}
 				}
-				genRandomOpen(r);
 			}
+			genRandomOpen(r);
 		}
 	}
 	
@@ -284,8 +294,9 @@ public class Map {
 				if (map[i][j].equals(0)) ret += "X";
 				else if (map[i][j] instanceof Opening && ((Opening) map[i][j]).isSpawnPnt()) ret += "S";
 				else if (map[i][j] instanceof Opening && !((Opening) map[i][j]).isSpawnPnt()) ret += "D";
-
 				else if (map[i][j].equals(1)) ret += "-";	
+				else if (map[i][j].equals(2)) ret += "F";
+
 			}
 			ret += "\n";
 		}

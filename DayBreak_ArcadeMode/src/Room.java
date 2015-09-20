@@ -114,7 +114,7 @@ public class Room {
 	}
 	
 	public void setEnd(Pair e){
-		this.origin = e;
+		this.end = e;
 	}
 	
 	public Pair getEnd(){
