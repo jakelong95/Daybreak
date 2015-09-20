@@ -78,11 +78,11 @@ public class Tile
 		tileGFX = new Image[4]; 
 		
 		//Load the tile images
-		tileGFX[FLOOR] = new Image("gfx/Floor.bmp");
-		tileGFX[WALL] = new Image("gfx/Wall.bmp");
-		tileGFX[INTERIOR_DOOR] = new Image("gfx/Door.bmp");
+		tileGFX[FLOOR] = new Image("gfx/tiles/Floor.bmp");
+		tileGFX[WALL] = new Image("gfx/tiles/Wall.bmp");
+		tileGFX[INTERIOR_DOOR] = new Image("gfx/tiles/Door.bmp");
 		tileGFX[EXTERIOR_DOOR] = tileGFX[INTERIOR_DOOR];
 		
-		blackTile = new Image("gfx/Black.bmp");
+		blackTile = new Image("gfx/tiles/Black.bmp");
 	}
 }
