@@ -146,6 +146,15 @@ public abstract class Entity
 	}
 
 	/**
+	 * Sets the health of this entity.
+	 * @param health New health.
+	 */
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+	
+	/**
 	 * Gets the current health of this entity.
 	 * @return Current health.
 	 */
