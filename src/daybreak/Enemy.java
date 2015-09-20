@@ -29,7 +29,7 @@ public class Enemy extends Entity
 	
 	public Enemy(Tile[][] map, Player player)
 	{
-		super(map);
+		super(map, "gfx/protoganist.bmp");
 		
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
