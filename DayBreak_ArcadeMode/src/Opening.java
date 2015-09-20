@@ -6,7 +6,7 @@
  * or simply a passage way 
  */
 public class Opening {
-	boolean spawnPnt; //whether or not this opening is a spawn point or not
+	boolean spawnPnt = true; //whether or not this opening is a spawn point or not
 	
 	/**
 	 * Make this opening be a spawning point

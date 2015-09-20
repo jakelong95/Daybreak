@@ -4,23 +4,23 @@
  * Crappy Pair class - will keep track of two numbers at a time
  */
 public class Pair {
-	private int T1;
-	private int T2;
+	private int x;
+	private int y;
 	
-	public Pair (int T1, int T2){
-		this.T1 = T1;
-		this.T2 = T2;
+	public Pair (int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 	
-	public int retFirst(){
-		return T1;
+	public int retX(){
+		return x;
 	}
 	
-	public int retSecond(){
-		return T2;
+	public int retY(){
+		return y;
 	}
 	
 	public void printPair(){
-		System.out.println(T1 + " " + T2);
+		System.out.println(x + " " + y);
 	}
 }

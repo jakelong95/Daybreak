@@ -8,6 +8,8 @@ public class Room {
 	private int numOpenings; //number of openings in a given room
 	private Pair[] indexes; //an array that contains the location of where the room was initialized in the map 
 	private Pair[] openingIndexes; //an array that contains the location of every opening in the room
+	private Pair origin;
+	private Pair end; 
 	
 	/**
 	 * @param width - width of the room
@@ -101,6 +103,22 @@ public class Room {
 	 */
 	public void setOpeningIndexes(Pair[] indexes) {
 		this.openingIndexes = indexes;
+	}
+	
+	public void setOrigin(Pair p){
+		this.origin = p;
+	}
+	
+	public Pair getOrigin(){
+		return origin;
+	}
+	
+	public void setEnd(Pair e){
+		this.origin = e;
+	}
+	
+	public Pair getEnd(){
+		return this.end;
 	}
 
 }
