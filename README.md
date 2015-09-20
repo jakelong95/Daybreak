@@ -6,4 +6,5 @@ Are you able to survive a night?
 - jakelong95
 - asr1
 - FlaviaR
+- asudtelgte
 - ghmeier
