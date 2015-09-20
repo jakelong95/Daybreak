@@ -8,6 +8,7 @@ import static org.newdawn.slick.Input.KEY_RIGHT;
 import static org.newdawn.slick.Input.KEY_S;
 import static org.newdawn.slick.Input.KEY_UP;
 import static org.newdawn.slick.Input.KEY_W;
+import daybreak.utils.SoundManager;
 import daybreak.weapons.*;
 
 import org.newdawn.slick.Input;
@@ -39,6 +40,9 @@ public class Player extends Entity
 		super(map, "gfx/Player1.png");
 		timeSinceLastUpdate = 0;
 
+		hurtSound = SoundManager.playerDamage;
+		deathSound = SoundManager.playerDeath;
+		
 		setHealth(DEFAULT_HEALTH);
 		
 		weapon = new Sword();

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
+import daybreak.utils.SoundManager;
+
 /**
  * Represents an enemy (a vampire). 
  */
@@ -42,6 +44,9 @@ public class Enemy extends Entity
 		
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
+		
+		hurtSound = SoundManager.mobDamage;
+		deathSound = SoundManager.mobDeath;
 		
 		movements = new Stack<Coordinate>();
 		

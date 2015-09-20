@@ -178,16 +178,16 @@ public abstract class Entity
 		
 		if(change < 0)
 		{
-//			playHurtSound();
+			playHurtSound();
 		}
 	}
-
+	
 	/**
 	 * Plays the hurt sound effect for this entity.
 	 */
 	public void playHurtSound()
 	{
-		hurtSound.playAsSoundEffect(0f, 0f, false);
+		hurtSound.playAsSoundEffect(1f, 1f, false);
 	}
 	
 	/**
@@ -195,7 +195,7 @@ public abstract class Entity
 	 */
 	public void playDeathSound()
 	{
-		deathSound.playAsSoundEffect(0f, 0f, false);
+		deathSound.playAsSoundEffect(1f, 1f, false);
 	}
 	
 	/**
