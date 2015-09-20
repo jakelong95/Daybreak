@@ -20,7 +20,8 @@ public class MainMenu extends BasicGameState implements Game {
     private Font font;
     private TrueTypeFont playersOptionsTTF, foo;
     private Color notChosen = new Color(153, 204, 255);
-
+	private Image background;
+    
     public MainMenu() {
         super();
     }
@@ -50,21 +51,32 @@ public class MainMenu extends BasicGameState implements Game {
         playersOptionsTTF = new TrueTypeFont(font, true);
         font = new Font ("Verdana", Font.PLAIN, 20);
         foo = new TrueTypeFont(font, true);
-        playersOptions[0] = "Start";
-        playersOptions[1] = "Save";
+        playersOptions[0] = "Story";
+        playersOptions[1] = "Arcade";
         playersOptions[2] = "Load";
         playersOptions[3] = "Options";
         playersOptions[4] = "Quit";
 		
+		try
+		{
+			background = new Image("gfx/menus/titleScreen.bmp");
+		} catch (SlickException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException
+	public void render(GameContainer gc, StateBasedGame sb, Graphics g) throws SlickException
 	{
-		 renderPlayersOptions();
+		g.drawImage(background, 0, 0);
+		renderPlayersOptions();
 	        if (exit) {
-	            arg0.exit();
+	            gc.exit();
 	        }
+	        
 		
 	}
 
