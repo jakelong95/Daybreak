@@ -108,14 +108,16 @@ public abstract class GameType extends BasicGameState
 			{
 				map[e.getPosY()][e.getPosX()].entity = null;
 				entities.remove(e);
-				e.playDeathSound();
+//				e.playDeathSound();
 			}
 		}
 
 		//Did the player die?
 		if(player.getHealth() <= 0)
 		{
-			player.playDeathSound();
+//			player.playDeathSound();
+			
+			game.enterState(Daybreak.GAMEOVER);
 		}
 
 		update(deltaTime);

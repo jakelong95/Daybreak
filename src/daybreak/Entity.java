@@ -178,7 +178,7 @@ public abstract class Entity
 		
 		if(change < 0)
 		{
-			playHurtSound();
+//			playHurtSound();
 		}
 	}
 
