@@ -13,7 +13,9 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
  
+//Supports Ogg, WAV, XM, and AIF formats. At least two of those are real formats.
 public class SoundManager {
+	//Declare your sounds ahead of time here.
 	/** A wav sound effect */
 	private Audio sound1;
 	/** The wav backgroudn music */
@@ -26,7 +28,9 @@ public class SoundManager {
 	public void start() {
 		initGL(800,600);
 		init();
- 
+		//Just like, make a blank screen or something. It's for an example.
+		//(obviously change this for the real one; we'll just have a soundmanager exist
+		//in the background).
 		while (true) {
 			update();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
@@ -84,16 +88,12 @@ public class SoundManager {
     * Initialise resources
     */
     public void init() {
- 
+    	//Load sounds in here.
         try {
 	    // you can play oggs by loading the complete thing into 
 	    // a sound
 	    sound1 = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("aud/Background sounds/day 11.wav"));
  
-
- 
-	    // you can play wavs by loading the complete thing into 
-	    // a sound
 	    background = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("aud/Flesh sounds/ya died.wav"));
         } catch (IOException e) {
 	    e.printStackTrace();
@@ -104,7 +104,8 @@ public class SoundManager {
 	 * Game loop update
 	 */
 	public void update() {
-		while (Keyboard.next()) {
+		//Obviously there's less contrived times to play a sound.
+		while (Keyboard.next()) {//Apparently keyboard.next is a thing.
 			if (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
 					// play as a one off sound effect
@@ -118,7 +119,7 @@ public class SoundManager {
 			}
 		}
  
-		// polling is required to allow streaming to get a chance to
+		// Polling is required to allow streaming to get a chance to
 		// queue buffers.
 		SoundStore.get().poll(0);
 	}
@@ -132,6 +133,9 @@ public class SoundManager {
  
 	/**
 	 * Main method
+	 * This is just a sample of how we'd want to use this.
+	 * We should have a global SoundManager that can invoke
+	 * sounds based on events.
 	 */
 	public static void main(String[] argv) {
 		SoundManager soundExample = new SoundManager();
