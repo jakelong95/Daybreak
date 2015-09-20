@@ -175,7 +175,7 @@ public class Player extends Entity
 		//If the player was facing an enemy, damage the enemy
 		if(e != null)
 		{
-			e.updateHealth(weapon.damage);
+			e.updateHealth(-weapon.damage);
 		}
 	}
 }

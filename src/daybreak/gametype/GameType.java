@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -102,14 +103,6 @@ public abstract class GameType extends BasicGameState
 		for(Entity e : entities)
 		{
 			e.update(deltaTime);
-
-			//Check if the entity died
-			if(e.getHealth() <= 0)
-			{
-				map[e.getPosY()][e.getPosX()].entity = null;
-				entities.remove(e);
-//				e.playDeathSound();
-			}
 		}
 
 		//Did the player die?
@@ -119,8 +112,28 @@ public abstract class GameType extends BasicGameState
 			
 			game.enterState(Daybreak.GAMEOVER);
 		}
+		
+		//Loop through each entity to check if they're still alive
+		for(Entity e : entities)
+		{
+			if(e.getHealth() <= 0)
+			{
+				map[e.getPosY()][e.getPosX()].entity = null;
+				entities.remove(e);
+//				e.playDeathSound();
+			}
+		}
 
 		update(deltaTime);
+	}
+	
+	@Override
+	public void keyReleased(int key, char c)
+	{
+		if(key == Input.KEY_SPACE)
+		{
+			player.attack();
+		}
 	}
 
 	public abstract void update(int deltaTime);
