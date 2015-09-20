@@ -71,6 +71,11 @@ public class Enemy extends Entity
 
 			setPosition(move.x, move.y);
 		}
+		
+		if(isAdjacentToPlayer())
+		{
+			//TODO  Attack the player
+		}
 	}
 
 	/**
@@ -184,6 +189,33 @@ public class Enemy extends Entity
 			movements.push(cur);
 			cur = pred.get(cur);
 		}
+	}
+	
+	/**
+	 * Checks whether this enemy is adjacent to the player.
+	 * @return True if this enemy is adjacent to the player, false otherwise.
+	 */
+	private boolean isAdjacentToPlayer()
+	{
+		boolean adjacent = false;
+		
+		for(int x = -1; x <= 1; ++x)
+		{
+			for(int y = -1; y <= 1; ++y)
+			{
+				if(Math.abs(x) == Math.abs(y))
+				{
+					continue;
+				}
+				
+				if(map[posY + y][posX + x].entity instanceof Player)
+				{
+					adjacent = true;
+				}
+			}
+		}
+		
+		return adjacent;
 	}
 	
 	/**
