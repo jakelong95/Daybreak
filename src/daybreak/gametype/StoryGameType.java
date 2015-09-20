@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.Daybreak;
 import daybreak.Enemy;
+import daybreak.Player;
 import daybreak.Tile;
 import daybreak.utils.MapParser;
 
@@ -139,6 +140,7 @@ public class StoryGameType extends GameType
 			Enemy enemy = new Enemy(map, player);
 			enemy.setPosition(openDoors.get(door).x, openDoors.get(door).y);
 			entities.add(enemy);
+			TimeSinceSpawn = 0;
 		}
 		
 		
@@ -147,9 +149,11 @@ public class StoryGameType extends GameType
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 	{
+		
+
 		try
 		{
-			map = MapParser.parseStoryMap();
+		map = MapParser.parseStoryMap();
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -157,6 +161,8 @@ public class StoryGameType extends GameType
 		}
 		
 		
+		player.updateHealth(player.DEFAULT_HEALTH);
+		entities.clear();
 		openDoors.add(new XYPair(77, 10));
 		
 		
