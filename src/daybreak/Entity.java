@@ -115,8 +115,10 @@ public abstract class Entity
 	public void setPosition(int x, int y)
 	{
 		//Mark that the entity moved from it's previous spot
-		map[posY][posX].entity = null;
-
+		if(map[posY][posX] != null)
+		{
+			map[posY][posX].entity = null;
+		}
 
 		//Update the direction the entity is facing
 		if(posX < x)
