@@ -1,10 +1,12 @@
 package daybreak.gametype;
 
+import java.awt.Font;
 import java.io.FileNotFoundException;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.Daybreak;
@@ -25,12 +27,16 @@ public class StoryGameType extends GameType
 	private boolean sixthRoom = false;
 	private long corridorTime = 0; //Time we enter the corridor
 	private long corridorDelay = 15000; //Number of milliseconds we make them wait for the corridor. Start at 15 seconds
-
+	Font font;
+	TrueTypeFont ttf;
+	
+	
 	public StoryGameType()
 	{
 		super(85, 20);
 	}
 
+	
 	@Override
 	public void init()
 	{
@@ -43,13 +49,29 @@ public class StoryGameType extends GameType
 			e.printStackTrace();
 		}
 	
+
+		    font = new Font("Verdana", Font.BOLD, 20);
+		    ttf = new TrueTypeFont(font, true);
+
+		
 		player.setMap(map);
 		player.setPosition(70, 10);
 	}
 
 	@Override
+	public void render(GameContainer gc, StateBasedGame sc, Graphics g) throws SlickException
+	{
+		super.render(gc, sc, g);
+		long totalTime = 25*60*1000;
+		int minuteAsMili = 60 * 1000;
+		 ttf.drawString(0,0,(totalTime - elapsedTime)/minuteAsMili + ":" + String.format("%02d", (totalTime - elapsedTime) % minuteAsMili / 1000  ));
+	}
+	
+	@Override
 	public void update(int deltaTime)
 	{
+		 ttf.drawString(0,0, "hello world");
+		
 		elapsedTime += deltaTime;
 		if(!secondRoom && (elapsedTime > 3 * 60 * 1000 ))//If we haven't reached the second room after 3 minutes, open the doors
 		{
@@ -88,7 +110,6 @@ public class StoryGameType extends GameType
 		}
 
 		
-		//TODO Perform game logic here
 	}
 
 	@Override
