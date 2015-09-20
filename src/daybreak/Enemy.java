@@ -16,15 +16,14 @@ public class Enemy extends Entity
 	//Damage to deal to the player
 	public static final int DAMAGE = 1;
 	
-	//Time since path was last calculated
-	private long timeSinceCalculation;
-	
-	//Time since last move
+	private long timeSinceCalculation;	
 	private long timeSinceMove;
+	private long timeSinceAttack;
 	
 	//How long to wait between calculations and moves in milliseconds
 	private static final int CALCULATION_TIME = 500;
 	private static final int MOVE_TIME = 100;
+	private static final int ATTACK_TIME = 1000;
 	
 	//List of movements to take in (x,y) format
 	private Stack<Coordinate> movements;
@@ -58,6 +57,7 @@ public class Enemy extends Entity
 	{
 		timeSinceCalculation += deltaTime;
 		timeSinceMove += deltaTime;
+		timeSinceAttack += deltaTime;
 		
 		//Is it time to recalculate the path?
 		if(timeSinceCalculation >= CALCULATION_TIME)
@@ -99,8 +99,11 @@ public class Enemy extends Entity
 				direction = Entity.DIRECTION_UP;
 			}
 			
-			//Next, attack the player
-			player.updateHealth(-DAMAGE);
+			if(timeSinceAttack >= ATTACK_TIME)
+			{
+				timeSinceAttack = 0;
+				player.updateHealth(-DAMAGE);
+			}
 		}
 	}
 
