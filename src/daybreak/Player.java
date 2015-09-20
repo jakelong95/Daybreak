@@ -118,8 +118,8 @@ public class Player extends Entity
 	}
 	
 	/**
-	 * Set the map reference.
-	 * @param map Map reference.
+	 * Sets the reference to the map.
+	 * @param map Reference to the map.
 	 */
 	public void setMap(Tile[][] map)
 	{

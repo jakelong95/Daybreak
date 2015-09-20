@@ -38,7 +38,6 @@ public abstract class GameType extends BasicGameState
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		Tile.loadTiles();
-
 		entities = new LinkedList<Entity>();
 
 		init();

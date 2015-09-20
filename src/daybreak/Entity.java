@@ -11,26 +11,26 @@ public abstract class Entity
 {
 	//Images to draw for the entity, based off of the direction they are facing
 	protected Image img[];
-	
+
 	//Direction the entity is facing. Corresponds to indices in the img array
 	protected int direction;
-	
+
 	//Directions the entity can face
 	public static final int DIRECTION_DOWN = 0;
 	public static final int DIRECTION_LEFT = 1;
 	public static final int DIRECTION_UP = 2;
 	public static final int DIRECTION_RIGHT = 3;
-	
+
 	//Location of the entity. These correspond to coordinates in a 2D array for the map
 	protected int posX;
 	protected int posY;
-	
+
 	//Reference to the map. Used for pathfinding and moving the player
 	protected Tile[][] map;
-	
+
 	//This entity's health
 	protected int health;
-	
+
 	/**
 	 * Creates a new entity.
 	 * @param map Reference to the map.
@@ -39,17 +39,17 @@ public abstract class Entity
 	public Entity(Tile[][] map, String imgFileName)
 	{
 		this.map = map;
-		
+
 		//Default to facing down
 		direction = DIRECTION_DOWN;
-		
+
 		//Load the images for the entity
 		img = new Image[4];
 		try
 		{
 			//Load the sprite 
 			SpriteSheet sheet = new SpriteSheet(imgFileName, 64, 64);
-			
+
 			for(int n = 0; n < 4; ++n)
 			{
 				img[n] = sheet.getSprite(n, 0);
@@ -60,8 +60,8 @@ public abstract class Entity
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/**
 	 * Get the image for this entity in the direction the entity is facing.
 	 * @return This entity's image.
@@ -70,7 +70,7 @@ public abstract class Entity
 	{
 		return img[direction];
 	}
-	
+
 	/**
 	 * Get's the X coordinate of this entity.
 	 * @return X coordinate.
@@ -115,8 +115,11 @@ public abstract class Entity
 	public void setPosition(int x, int y)
 	{
 		//Mark that the entity moved from it's previous spot
-		map[posY][posX].entity = null;
-		
+		if(posX < 0 || posX >= map[0].length || posY < 0 || posY >= map.length)
+		{
+			map[posY][posX].entity = null;
+		}
+
 		//Update the direction the entity is facing
 		if(posX < x)
 		{
@@ -134,14 +137,14 @@ public abstract class Entity
 		{
 			direction = DIRECTION_UP;
 		}
-		
+
 		this.posX = x;
 		this.posY = y;
-		
+
 		//Mark the entity's new location
 		map[posY][posX].entity = this;
 	}
-	
+
 	/**
 	 * Gets the current health of this entity.
 	 * @return Current health.
@@ -159,7 +162,7 @@ public abstract class Entity
 	{
 		health += change;
 	}
-	
+
 	/**
 	 * Updates this entity. Perform any logic and calculations here.
 	 * @param delta Time since last update in milliseconds
