@@ -1,10 +1,12 @@
 package daybreak.gametype;
 
+import java.awt.Font;
 import java.io.FileNotFoundException;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.Daybreak;
@@ -25,12 +27,18 @@ public class StoryGameType extends GameType
 	private boolean sixthRoom = false;
 	private long corridorTime = 0; //Time we enter the corridor
 	private long corridorDelay = 15000; //Number of milliseconds we make them wait for the corridor. Start at 15 seconds
+	long totalTime = 25*60*1000; //Time it takes to win the game.
+	Font font;
+	TrueTypeFont ttf;
 
+	
+	
 	public StoryGameType()
 	{
 		super(85, 20);
 	}
 
+	
 	@Override
 	public void init()
 	{
@@ -43,13 +51,28 @@ public class StoryGameType extends GameType
 			e.printStackTrace();
 		}
 	
+
+		    font = new Font("Verdana", Font.BOLD, 20);
+		    ttf = new TrueTypeFont(font, true);
+
+		
 		player.setMap(map);
 		player.setPosition(70, 10);
 	}
 
 	@Override
+	public void render(GameContainer gc, StateBasedGame sc, Graphics g) throws SlickException
+	{
+		super.render(gc, sc, g);
+		int minuteAsMili = 60 * 1000;
+		 ttf.drawString(0,0,(totalTime - elapsedTime)/minuteAsMili + ":" + String.format("%02d", (totalTime - elapsedTime) % minuteAsMili / 1000  ));
+	}
+	
+	@Override
 	public void update(int deltaTime)
 	{
+		 ttf.drawString(0,0, "hello world");
+		
 		elapsedTime += deltaTime;
 		if(!secondRoom && (elapsedTime > 3 * 60 * 1000 ))//If we haven't reached the second room after 3 minutes, open the doors
 		{
@@ -58,14 +81,14 @@ public class StoryGameType extends GameType
 			map[12][63].setTileType(Tile.FLOOR);
 			secondRoom = true;
 		}
-		if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
+		else if(!thirdRoom && (elapsedTime > 7 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[7][54].setTileType(Tile.FLOOR);
 
 			thirdRoom = true;
 		}
-		if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
+		else if(!fourthRoom && (elapsedTime > 12 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[8][40].setTileType(Tile.FLOOR);
@@ -73,7 +96,7 @@ public class StoryGameType extends GameType
 			fourthRoom = true;
 		}
 		//Open the right side of the corridor
-		if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
+		else if(!fifthRoom && (elapsedTime > 18 * 60 * 1000 ))
 		{
 			//Change the second doors into walkables.
 			map[10][30].setTileType(Tile.FLOOR);
@@ -81,14 +104,19 @@ public class StoryGameType extends GameType
 			fifthRoom = true;
 		}
 		//After the delay open the left side of the corridor
-		if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
+		else if(!sixthRoom && ((elapsedTime - corridorTime) > corridorDelay ))
 		{
 			map[10][16].setTileType(Tile.FLOOR);
 			sixthRoom = true;
 		}
+		
+		if(elapsedTime == totalTime)
+		{
+			//TOOD enter state: victory
+		}
+		//Note: We also need a death/ game over screen
 
 		
-		//TODO Perform game logic here
 	}
 
 	@Override
