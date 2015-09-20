@@ -21,7 +21,7 @@ import daybreak.Tile;
 public abstract class GameType extends BasicGameState
 {
 	//List of entities in the game
-	protected LinkedList<Entity> entities;
+	protected volatile LinkedList<Entity> entities;
 
 	//Array containing the map
 	protected Tile[][] map;
@@ -99,34 +99,40 @@ public abstract class GameType extends BasicGameState
 	{
 		player.update(deltaTime);
 
-		//Update each entity
-		for(Entity e : entities)
+		synchronized(entities)
 		{
-			e.update(deltaTime);
+			//Update each entity
+			for(Entity e : entities)
+			{
+				e.update(deltaTime);
+			}
 		}
 
 		//Did the player die?
 		if(player.getHealth() <= 0)
 		{
-//			player.playDeathSound();
-			
+			//			player.playDeathSound();
+
 			game.enterState(Daybreak.GAMEOVER);
 		}
-		
-		//Loop through each entity to check if they're still alive
-		for(Entity e : entities)
+
+		synchronized(entities)
 		{
-			if(e.getHealth() <= 0)
+			//Loop through each entity to check if they're still alive
+			for(Entity e : entities)
 			{
-				map[e.getPosY()][e.getPosX()].entity = null;
-				entities.remove(e);
-//				e.playDeathSound();
+				if(e.getHealth() <= 0)
+				{
+					map[e.getPosY()][e.getPosX()].entity = null;
+					entities.remove(e);
+					//				e.playDeathSound();
+				}
 			}
 		}
 
 		update(deltaTime);
 	}
-	
+
 	@Override
 	public void keyReleased(int key, char c)
 	{
