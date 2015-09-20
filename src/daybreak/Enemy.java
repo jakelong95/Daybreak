@@ -129,7 +129,7 @@ public class Enemy extends Entity
 			cur = toCheck.poll();
 			
 			//Check each orthogonal neighbor of cur
-			for(int x = -1; x <= 1; x +=2) //Only check -1 and 1
+			for(int x = -1; x <= 1; ++x) //Only check -1 and 1
 			{
 				//Make sure nothing goes out of bounds
 				if(cur.x + x >= map[0].length || cur.x + x < 0)
@@ -137,11 +137,12 @@ public class Enemy extends Entity
 					continue;
 				}
 				
-				for(int y = -1; y <= 1; y += 2) //Only check -1 and 1
+				for(int y = -1; y <= 1; ++y) //Only check -1 and 1
 				{
 					if((cur.y + y >= map.length || cur.y + y < 0) || //Make sure nothing goes out of bounds
 							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
-							!map[cur.y + y][cur.x + x].canEnemyPass) //Make sure the enemy can walk there
+							!map[cur.y + y][cur.x + x].canEnemyPass || //Make sure the enemy can walk there
+							Math.abs(x) == Math.abs(y)) //Only check the orthogonals
 					{
 						continue;
 					}
@@ -172,10 +173,11 @@ public class Enemy extends Entity
 		//Check if a path was actually constructed
 		if(pred.get(dest) == null)
 		{
+			System.out.println("No path constructed.");
 			return;
 		}
 		
-		cur = dest;
+		cur = pred.get(dest); //Go to a square adjacent to the player
 		
 		while(pred.get(cur) != null)
 		{
