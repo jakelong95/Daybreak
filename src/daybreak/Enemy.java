@@ -93,17 +93,27 @@ public class Enemy extends Entity
 			}
 		}
 		
+		//Array of coordinates used to generate path
+		Coordinate[][] coordinates = new Coordinate[map.length][map[0].length];
+		
+		for(int n = 0; n < coordinates.length; ++n)
+		{
+			for(int i = 0; i < coordinates[0].length; ++i)
+			{
+				Coordinate coord = new Coordinate();
+				coord.x = i;
+				coord.y = n;
+				coordinates[n][i] = coord;
+			}
+		}
+		
 		//Destination coordinates (player's location)
-		Coordinate dest = new Coordinate();
-		dest.x = player.getPosX();
-		dest.y = player.getPosX();
+		Coordinate dest = coordinates[player.getPosY()][player.getPosX()];
 		
 		//Coordinates to check
 		Queue<Coordinate> toCheck = new LinkedList<Coordinate>();
 		
-		Coordinate cur = new Coordinate();
-		cur.x = posX;
-		cur.y = posY;
+		Coordinate cur = coordinates[posY][posX];
 		
 		visited[cur.y][cur.x] = true;
 		pred.put(cur, null);
@@ -129,26 +139,16 @@ public class Enemy extends Entity
 				
 				for(int y = -1; y <= 1; y += 2) //Only check -1 and 1
 				{
-					//Make sure nothing goes out of bounds
-					if(cur.y + y >= map.length || cur.y + y < 0)
+					if((cur.y + y >= map.length || cur.y + y < 0) || //Make sure nothing goes out of bounds
+							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
+							!map[cur.y + y][cur.x + x].canEnemyPass) //Make sure the enemy can walk there
 					{
 						continue;
 					}
-					
-					//If we already visited the coordinate, don't recheck it
-					if(visited[cur.y + y][cur.x + x])
-					{
-						continue;
-					}
-					
-					Coordinate newCoord = new Coordinate();
-					newCoord.x = cur.x + x;
-					newCoord.y = cur.y + y;
-					
+
+					Coordinate newCoord = coordinates[cur.y + y][cur.x + x];
 					visited[newCoord.y][newCoord.x] = true;
-					
 					pred.put(newCoord, cur);
-					
 					toCheck.add(newCoord);
 					
 					//Check if we're finished
