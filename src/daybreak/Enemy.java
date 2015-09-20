@@ -80,9 +80,7 @@ public class Enemy extends Entity
 		}
 		
 		if(isAdjacentToPlayer())
-		{
-			//TODO  Attack the player
-			
+		{			
 			//First, make the enemy face the player
 			if(player.getPosX() > posX)
 			{
