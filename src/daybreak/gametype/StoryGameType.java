@@ -35,6 +35,7 @@ public class StoryGameType extends GameType
     private ArrayList<XYPair> openDoors = new ArrayList<XYPair>();
     private int TimeSinceSpawn; //Milliseconds since last Vampire spawn.
     private boolean gameOver = false;
+    private final static int SPAWNTIME = 5000;//Time between enemy spawns (milliseconds)
 	Font font;
 	TrueTypeFont ttf;
 
@@ -132,7 +133,7 @@ public class StoryGameType extends GameType
 		}
 		
 		//Spawn Enemeies;
-		if(TimeSinceSpawn >= 3000)
+		if(TimeSinceSpawn >= SPAWNTIME)
 		{
 			//Enemies spawn in at a random door.
 			Random random = new Random();
