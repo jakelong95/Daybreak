@@ -25,13 +25,13 @@ public class MainMenu extends BasicGameState implements Game {
         super();
     }
 
-    public static void main(String[] args)
-            throws SlickException {
-        AppGameContainer app =
-                new AppGameContainer(new MainMenu());
-        app.setDisplayMode(576, 576, false);
-        app.start();
-    }
+//    public static void main(String[] args)
+//            throws SlickException {
+//        AppGameContainer app =
+//                new AppGameContainer(new MainMenu());
+//        app.setDisplayMode(576, 576, false);
+//        app.start();
+//    }
 
     private void renderPlayersOptions() {
         for (int i = 0; i < NOCHOICES; i++) {
