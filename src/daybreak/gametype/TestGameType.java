@@ -1,5 +1,6 @@
 package daybreak.gametype;
 
+import daybreak.Enemy;
 import daybreak.Tile;
 
 public class TestGameType extends GameType
@@ -35,6 +36,9 @@ public class TestGameType extends GameType
 		}
 		
 		player.setPosition(5, 5);
+		
+		Enemy enemy = new Enemy(map, player);
+		entities.add(enemy);
 	}
 
 	@Override
