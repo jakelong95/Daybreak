@@ -60,7 +60,6 @@ public class Enemy extends Entity
 			calculatePath();
 		}
 		
-		System.out.printf("timeSinceMove = %d\n", timeSinceMove);
 		
 		//Is it time to move?/ is there a movement calculated?
 		if(timeSinceMove >= MOVE_TIME && movements.size() != 0)

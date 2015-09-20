@@ -44,7 +44,7 @@ public class StoryGameType extends GameType
 		}
 	
 		player.setMap(map);
-		player.setPosition(10, 10);
+		player.setPosition(70, 10);
 	}
 
 	@Override

@@ -10,8 +10,8 @@ public class MainMenu extends BasicGameState implements Game {
 
     private int playersChoice = 0;
     private static final int NOCHOICES = 5;
-    private static final int START = 0;
-    private static final int SAVE = 1;
+    private static final int STORY = 0;
+    private static final int ARCADE = 1;
     private static final int LOAD = 2;
     private static final int OPTIONS = 3;
     private static final int QUIT = 4;
@@ -81,9 +81,9 @@ public class MainMenu extends BasicGameState implements Game {
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException
+	public void update(GameContainer gc, StateBasedGame sb, int arg2) throws SlickException
 	{
-	    Input input = arg0.getInput();
+	    Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_DOWN)) {
             if (playersChoice == (NOCHOICES - 1)) {
                 playersChoice = 0;
@@ -100,7 +100,10 @@ public class MainMenu extends BasicGameState implements Game {
         }
         if (input.isKeyPressed(Input.KEY_ENTER)) {
             switch (playersChoice) {
-                case QUIT:
+            	case STORY:
+            		sb.enterState(Daybreak.STORY);
+            		break;
+            	case QUIT:
                     exit = true;
                     break;
             }

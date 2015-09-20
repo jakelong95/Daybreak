@@ -35,8 +35,7 @@ public class Player extends Entity
 	 */
 	public Player(Tile[][] map)
 	{
-		super(map, "gfx/Player1.bmp");
-		
+		super(map, "gfx/player1.bmp");
 		timeSinceLastUpdate = 0;
 	}
 
