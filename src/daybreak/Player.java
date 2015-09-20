@@ -73,6 +73,8 @@ public class Player extends Entity
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
+			direction = Entity.DIRECTION_UP;
+			
 			//Check if the player can move up
 			if(map[posY - 1][posX].canPlayerPass && map[posY - 1][posX].entity == null)
 			{
@@ -81,6 +83,8 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_S) || input.isKeyDown(KEY_DOWN))
 		{
+			direction = Entity.DIRECTION_DOWN;
+			
 			//Check if the player can move down
 			if(map[posY + 1][posX].canPlayerPass && map[posY + 1][posX].entity == null)
 			{
@@ -89,6 +93,8 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
 		{
+			direction = Entity.DIRECTION_LEFT;
+			
 			//Check if the player can move left
 			if(map[posY][posX - 1].canPlayerPass && map[posY][posX - 1].entity == null)
 			{
@@ -97,6 +103,8 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_D) || input.isKeyDown(KEY_RIGHT))
 		{
+			direction = Entity.DIRECTION_RIGHT;
+			
 			//Check if the player can move right
 			if(map[posY][posX + 1].canPlayerPass && map[posY][posX + 1].entity == null)
 			{
