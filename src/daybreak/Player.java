@@ -20,6 +20,8 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Player extends Entity
 {
+	public static final int DEFAULT_HEALTH = 15;
+	
 	//Reference to the input manager
 	private Input input;
 
@@ -37,6 +39,8 @@ public class Player extends Entity
 	{
 		super(map, "gfx/Player1.png");
 		timeSinceLastUpdate = 0;
+		
+		setHealth(DEFAULT_HEALTH);
 	}
 
 	//How many vamps the player has killed
