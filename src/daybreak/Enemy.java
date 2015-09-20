@@ -238,7 +238,7 @@ public class Enemy extends Entity
 		{
 			for(int y = -1; y <= 1; ++y)
 			{
-				if(map[posY + y][posX + x] == null)
+				if(map[posY + y][posX + x] == null)  
 				{
 					continue;
 				}

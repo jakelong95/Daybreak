@@ -172,7 +172,7 @@ public class StoryGameType extends GameType
 
 		try
 		{
-		map = MapParser.parseStoryMap(new File("maps/storyMap.csv"),20,80);
+		map = MapParser.parseStoryMap(new File("maps/storyMap.csv"),80,20);
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
