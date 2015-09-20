@@ -75,6 +75,26 @@ public class Enemy extends Entity
 		if(isAdjacentToPlayer())
 		{
 			//TODO  Attack the player
+			
+			//First, make the enemy face the player
+			if(player.getPosX() > posX)
+			{
+				direction = Entity.DIRECTION_RIGHT;
+			}
+			else if(player.getPosX() < posX)
+			{
+				direction = Entity.DIRECTION_LEFT;
+			}
+			else if(player.getPosY() > posY)
+			{
+				direction = Entity.DIRECTION_DOWN;
+			}
+			else if(player.getPosY() < posY)
+			{
+				direction = Entity.DIRECTION_UP;
+			}
+			
+			//Next, attack the player
 		}
 	}
 
@@ -203,6 +223,7 @@ public class Enemy extends Entity
 		{
 			for(int y = -1; y <= 1; ++y)
 			{
+				//Don't check the tile containing
 				if(Math.abs(x) == Math.abs(y))
 				{
 					continue;
