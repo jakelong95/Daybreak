@@ -8,10 +8,12 @@ import static org.newdawn.slick.Input.KEY_RIGHT;
 import static org.newdawn.slick.Input.KEY_S;
 import static org.newdawn.slick.Input.KEY_UP;
 import static org.newdawn.slick.Input.KEY_W;
-import daybreak.utils.SoundManager;
-import daybreak.weapons.*;
 
 import org.newdawn.slick.Input;
+
+import daybreak.utils.SoundManager;
+import daybreak.weapons.Sword;
+import daybreak.weapons.Weapon;
 
 /**
  * Represents the player.
@@ -20,15 +22,15 @@ public class Player extends Entity
 {
 	public static final int DEFAULT_HEALTH = 15;
 
+	//Time (in milliseconds) between each input poll
+	private static final int UPDATE_PERIOD = 100;
+
 	//Reference to the input manager
 	private Input input;
 
 	//Time since input was last polled
 	private long timeSinceLastUpdate;
 
-	//Time (in milliseconds) between each input poll
-	private static final int UPDATE_PERIOD = 100;
-	
 	private Weapon weapon;
 
 	/**
@@ -44,11 +46,13 @@ public class Player extends Entity
 		deathSound = SoundManager.playerDeath;
 		
 		setHealth(DEFAULT_HEALTH);
-		
+
+		//TODO - No weapon at start, pickup as you go along
 		weapon = new Sword();
 	}
 
 	//How many vamps the player has killed
+	//TODO Use this
 	private int killCount;
 
 	//TODO - Add weapons, etc.
@@ -73,6 +77,8 @@ public class Player extends Entity
 		//Check if the player is pressing any of the movement keys
 		if(input.isKeyDown(KEY_W) || input.isKeyDown(KEY_UP))
 		{
+			direction = Entity.DIRECTION_UP;
+			
 			//Check if the player can move up
 			if(map[posY - 1][posX].canPlayerPass && map[posY - 1][posX].entity == null)
 			{
@@ -81,6 +87,8 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_S) || input.isKeyDown(KEY_DOWN))
 		{
+			direction = Entity.DIRECTION_DOWN;
+			
 			//Check if the player can move down
 			if(map[posY + 1][posX].canPlayerPass && map[posY + 1][posX].entity == null)
 			{
@@ -89,6 +97,8 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_A) || input.isKeyDown(KEY_LEFT))
 		{
+			direction = Entity.DIRECTION_LEFT;
+			
 			//Check if the player can move left
 			if(map[posY][posX - 1].canPlayerPass && map[posY][posX - 1].entity == null)
 			{
@@ -97,39 +107,13 @@ public class Player extends Entity
 		}
 		else if(input.isKeyDown(KEY_D) || input.isKeyDown(KEY_RIGHT))
 		{
+			direction = Entity.DIRECTION_RIGHT;
+			
 			//Check if the player can move right
 			if(map[posY][posX + 1].canPlayerPass && map[posY][posX + 1].entity == null)
 			{
 				++x;
 			}
-		}
-		Entity e = null;
-		//First, check if the player is facing the enemy
-		switch (direction)
-		{
-		case Entity.DIRECTION_DOWN:
-			if(map[posY+1][posX].entity instanceof Enemy){
-				e=map[posY+1][posX].entity;
-			}
-			break;
-		case Entity.DIRECTION_LEFT:
-			if(map[posY][posX-1].entity instanceof Enemy){
-				e=map[posY][posX-1].entity;
-			}
-			break;
-		case Entity.DIRECTION_RIGHT:
-			if(map[posY][posX+1].entity instanceof Enemy){
-				e=map[posY][posX+1].entity;
-			}
-			break;
-		case Entity.DIRECTION_UP:
-			if(map[posY-1][posX].entity instanceof Enemy){
-				e=map[posY-1][posX].entity;
-			}
-			break;
-		}
-		if(e!=null){
-			e.updateHealth(weapon.damage);
 		}
 
 		setPosition(x, y);
@@ -162,5 +146,48 @@ public class Player extends Entity
 		this.map = map;
 	}
 
+	public void attack()
+	{
+		Entity e = null;
 
+		//Check if the player is facing any enemy
+		switch (direction)
+		{
+
+		case Entity.DIRECTION_DOWN:
+			if(map[posY+1][posX].entity instanceof Enemy)
+			{
+				e = map[posY+1][posX].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_LEFT:
+			if(map[posY][posX-1].entity instanceof Enemy) 
+			{
+				e = map[posY][posX-1].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_RIGHT:
+			if(map[posY][posX+1].entity instanceof Enemy)
+			{
+				e = map[posY][posX+1].entity;
+			}
+
+			break;
+		case Entity.DIRECTION_UP:
+			if(map[posY-1][posX].entity instanceof Enemy)
+			{
+				e = map[posY-1][posX].entity;
+			}
+
+			break;
+		}
+
+		//If the player was facing an enemy, damage the enemy
+		if(e != null)
+		{
+			e.updateHealth(-weapon.damage);
+		}
+	}
 }

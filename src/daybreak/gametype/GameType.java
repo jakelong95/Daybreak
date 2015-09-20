@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
@@ -22,7 +23,7 @@ import daybreak.utils.SoundManager;
 public abstract class GameType extends BasicGameState
 {
 	//List of entities in the game
-	protected LinkedList<Entity> entities;
+	protected volatile LinkedList<Entity> entities;
 
 	//Array containing the map
 	protected Tile[][] map;
@@ -103,17 +104,12 @@ public abstract class GameType extends BasicGameState
 	{
 		player.update(deltaTime);
 
-		//Update each entity
-		for(Entity e : entities)
+		synchronized(entities)
 		{
-			e.update(deltaTime);
-
-			//Check if the entity died
-			if(e.getHealth() <= 0)
+			//Update each entity
+			for(Entity e : entities)
 			{
-				map[e.getPosY()][e.getPosX()].entity = null;
-				entities.remove(e);
-				e.playDeathSound();
+				e.update(deltaTime);
 			}
 		}
 
@@ -125,9 +121,32 @@ public abstract class GameType extends BasicGameState
 			game.enterState(Daybreak.GAMEOVER);
 		}
 
+		synchronized(entities)
+		{
+			//Loop through each entity to check if they're still alive
+			for(Entity e : entities)
+			{
+				if(e.getHealth() <= 0)
+				{
+					map[e.getPosY()][e.getPosX()].entity = null;
+					entities.remove(e);
+					e.playDeathSound();
+				}
+			}
+		}
+
 		update(deltaTime);
 		
 		SoundStore.get().poll(0);
+	}
+
+	@Override
+	public void keyReleased(int key, char c)
+	{
+		if(key == Input.KEY_SPACE)
+		{
+			player.attack();
+		}
 	}
 
 	public abstract void update(int deltaTime);

@@ -13,7 +13,7 @@ import daybreak.utils.SoundManager;
  */
 public class Enemy extends Entity
 {
-	public static final int DEFAULT_HEALTH = 5;
+	public static final int DEFAULT_HEALTH = 10;
 	
 	//Damage to deal to the player
 	public static final int DAMAGE = 1;

@@ -140,7 +140,12 @@ public class StoryGameType extends GameType
 			int door = random.nextInt(openDoors.size());
 			Enemy enemy = new Enemy(map, player);
 			enemy.setPosition(openDoors.get(door).x, openDoors.get(door).y);
-			entities.add(enemy);
+			
+			synchronized(entities)
+			{
+				entities.add(enemy);
+			}
+			
 			TimeSinceSpawn = 0;
 		}
 		
