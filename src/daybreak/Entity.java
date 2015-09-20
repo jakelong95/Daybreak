@@ -37,6 +37,17 @@ public abstract class Entity
 	protected Audio deathSound;
 
 	/**
+	 * Creates a new entity with the specified map. 
+	 * @param map Reference to the game map.
+	 */
+	public Entity(Tile[][] map)
+	{
+		this.map = map;
+
+		direction = DIRECTION_DOWN;
+	}
+	
+	/**
 	 * Creates a new entity.
 	 * @param map Reference to the map.
 	 * @param imgFileName Filename of the sprite sheet to load for the entity
