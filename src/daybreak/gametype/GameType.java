@@ -1,5 +1,7 @@
 package daybreak.gametype;
 
+import java.util.AbstractSequentialList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
@@ -7,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -14,6 +17,7 @@ import daybreak.Daybreak;
 import daybreak.Entity;
 import daybreak.Player;
 import daybreak.Tile;
+import daybreak.utils.SoundManager;
 
 /**
  * Represents a game type in Daybreak.
@@ -31,14 +35,17 @@ public abstract class GameType extends BasicGameState
 	public GameType(int mapWidth, int mapHeight)
 	{
 		map = new Tile[mapHeight][mapWidth];
-
-		player = new Player(map);
 	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		Tile.loadTiles();
+		SoundManager.loadSound();
+		SoundManager.background1.playAsMusic(1f, 1f, true);
+
+		player = new Player(map);
+
 		entities = new LinkedList<Entity>();
 
 		init();
@@ -94,43 +101,47 @@ public abstract class GameType extends BasicGameState
 		player.render();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int deltaTime) throws SlickException
 	{
 		player.update(deltaTime);
 
-		synchronized(entities)
+
+		//Update each entity
+		Iterator<Entity> iter = ((LinkedList<Entity>) entities.clone()).iterator();
+		while(iter.hasNext())
 		{
-			//Update each entity
-			for(Entity e : entities)
-			{
-				e.update(deltaTime);
-			}
+			Entity e = iter.next();
+			e.update(deltaTime);
 		}
+
 
 		//Did the player die?
 		if(player.getHealth() <= 0)
 		{
-			//			player.playDeathSound();
+			player.playDeathSound();
 
 			game.enterState(Daybreak.GAMEOVER);
 		}
 
-		synchronized(entities)
+
+		//Loop through each entity to check if they're still alive
+		iter = ((LinkedList<Entity>) entities.clone()).iterator();
+		while(iter.hasNext())
 		{
-			//Loop through each entity to check if they're still alive
-			for(Entity e : entities)
+			Entity e = iter.next();
+			if(e.getHealth() <= 0)
 			{
-				if(e.getHealth() <= 0)
-				{
-					map[e.getPosY()][e.getPosX()].entity = null;
-					entities.remove(e);
-					//				e.playDeathSound();
-				}
+				map[e.getPosY()][e.getPosX()].entity = null;
+				entities.remove(e);
+				e.playDeathSound();
 			}
 		}
 
 		update(deltaTime);
+
+		SoundStore.get().poll(0);
 	}
 
 	@Override

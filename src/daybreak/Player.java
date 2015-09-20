@@ -9,8 +9,12 @@ import static org.newdawn.slick.Input.KEY_S;
 import static org.newdawn.slick.Input.KEY_UP;
 import static org.newdawn.slick.Input.KEY_W;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
+import daybreak.utils.SoundManager;
 import daybreak.weapons.Sword;
 import daybreak.weapons.Weapon;
 
@@ -37,10 +41,31 @@ public class Player extends Entity
 	 * @param map Reference to the game map.
 	 */
 	public Player(Tile[][] map)
-	{
-		super(map, "gfx/Player1.png");
+	{		
+		super(map);
+
+		//Load the images for the entity
+		img = new Image[4];
+		try
+		{
+			//Load the sprite 
+			SpriteSheet sheet = new SpriteSheet("gfx/Player1.png", 64, 64);
+
+			for(int n = 0; n < 4; ++n)
+			{
+				img[n] = sheet.getSprite(n, 1);
+			}
+		} 
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
+		
 		timeSinceLastUpdate = 0;
 
+		hurtSound = SoundManager.playerDamage;
+		deathSound = SoundManager.playerDeath;
+		
 		setHealth(DEFAULT_HEALTH);
 
 		//TODO - No weapon at start, pickup as you go along
