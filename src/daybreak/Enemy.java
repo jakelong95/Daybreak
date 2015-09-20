@@ -182,6 +182,7 @@ public class Enemy extends Entity
 							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
 							map[cur.y + y][cur.x + x] == null || //Make sure it's not a null tile
 							!map[cur.y + y][cur.x + x].canEnemyPass || //Make sure the enemy can walk there
+							map[cur.y + y][cur.x + x].entity instanceof Enemy || //Make sure there's not an enemy already there
 							Math.abs(x) == Math.abs(y)) //Only check the orthogonals
 					{
 						continue;
