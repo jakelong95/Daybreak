@@ -3,6 +3,7 @@ package daybreak;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.openal.Audio;
 
 /**
  * Represents an entity in the game.
@@ -14,7 +15,7 @@ public abstract class Entity
 
 	//Direction the entity is facing. Corresponds to indices in the img array
 	protected int direction;
-
+	
 	//Directions the entity can face
 	public static final int DIRECTION_DOWN = 0;
 	public static final int DIRECTION_LEFT = 1;
@@ -30,6 +31,10 @@ public abstract class Entity
 
 	//This entity's health
 	protected int health;
+	
+	//Sounds for the player
+	protected Audio hurtSound;
+	protected Audio deathSound;
 
 	/**
 	 * Creates a new entity.
@@ -170,8 +175,29 @@ public abstract class Entity
 	public void updateHealth(int change)
 	{
 		health += change;
+		
+		if(change < 0)
+		{
+			playHurtSound();
+		}
 	}
 
+	/**
+	 * Plays the hurt sound effect for this entity.
+	 */
+	public void playHurtSound()
+	{
+		hurtSound.playAsSoundEffect(0f, 0f, false);
+	}
+	
+	/**
+	 * Plays the death sound effect for this entity.
+	 */
+	public void playDeathSound()
+	{
+		deathSound.playAsSoundEffect(0f, 0f, false);
+	}
+	
 	/**
 	 * Updates this entity. Perform any logic and calculations here.
 	 * @param delta Time since last update in milliseconds
