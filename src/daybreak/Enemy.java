@@ -175,6 +175,7 @@ public class Enemy extends Entity
 				{
 					if((cur.y + y >= map.length || cur.y + y < 0) || //Make sure nothing goes out of bounds
 							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
+							map[cur.y + y][cur.x + x] == null || //Make sure it's not a null tile
 							!map[cur.y + y][cur.x + x].canEnemyPass || //Make sure the enemy can walk there
 							Math.abs(x) == Math.abs(y)) //Only check the orthogonals
 					{
@@ -232,6 +233,11 @@ public class Enemy extends Entity
 		{
 			for(int y = -1; y <= 1; ++y)
 			{
+				if(map[posY + y][posX + x] == null)
+				{
+					continue;
+				}
+				
 				//Don't check the tile containing
 				if(Math.abs(x) == Math.abs(y))
 				{
