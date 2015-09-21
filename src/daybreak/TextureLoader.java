@@ -12,11 +12,9 @@ import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
-
-
-import Entity.IEntity;
-
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
+import daybreak.entity.IEntity;
 
 public class TextureLoader implements ITextureLoader 
 {
