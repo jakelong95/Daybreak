@@ -1,7 +1,7 @@
 package daybreak.gametype;
 
-import daybreak.Enemy;
 import daybreak.Tile;
+import daybreak.entity.Enemy;
 
 public class TestGameType extends GameType
 {

@@ -1,9 +1,11 @@
-package daybreak;
+package daybreak.entity;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.openal.Audio;
+
+import daybreak.Tile;
 
 /**
  * Represents an entity in the game.

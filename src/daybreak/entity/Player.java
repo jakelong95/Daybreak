@@ -1,4 +1,4 @@
-package daybreak;
+package daybreak.entity;
 
 import static org.newdawn.slick.Input.KEY_A;
 import static org.newdawn.slick.Input.KEY_D;
@@ -14,6 +14,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import daybreak.Daybreak;
+import daybreak.Tile;
 import daybreak.utils.SoundManager;
 import daybreak.weapons.Sword;
 import daybreak.weapons.Weapon;

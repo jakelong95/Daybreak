@@ -3,6 +3,8 @@ package daybreak;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import daybreak.entity.Entity;
+
 
 public class Tile
 {

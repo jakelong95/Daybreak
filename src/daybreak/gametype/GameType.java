@@ -14,9 +14,9 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.Daybreak;
-import daybreak.Entity;
-import daybreak.Player;
 import daybreak.Tile;
+import daybreak.entity.Entity;
+import daybreak.entity.Player;
 import daybreak.utils.SoundManager;
 
 /**

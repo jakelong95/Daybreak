@@ -62,7 +62,7 @@ public class MapParser
 	 
 	  //  System.out.println(resolvedData.toArray());
 	    //There's going to be a problem where I still have to convert everything to the right type.s
-	    return  ret;
+	    return  ret;	
 		
 //		@SuppressWarnings("resource")
 //		Scanner scanner = new Scanner(new File("maps/storyMap.csv"));

@@ -31,6 +31,10 @@ public class Daybreak extends StateBasedGame
 	//Size of each tile in the map
 	public static final int TILE_SIZE = 64;
 	
+	// Texture loader is used to load and server textures to entities on init 
+		public static ITextureLoader textureLoader = new TextureLoader();	
+			textureLoader.init();
+	
 	public static void main(String[] args)
 	{
 		try
