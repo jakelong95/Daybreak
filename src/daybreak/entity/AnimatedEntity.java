@@ -1,8 +1,9 @@
-package daybreak;
+package daybreak.entity;
 
 import org.newdawn.slick.opengl.Texture;
 
-import daybreak.entity.Entity;
+import daybreak.Daybreak;
+import daybreak.Tile;
 
 public abstract class AnimatedEntity extends Entity
 {
