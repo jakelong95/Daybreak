@@ -8,3 +8,4 @@ Add health.
 Lower enemy spawn rate
 Add weapons.
 Add animations.
+Ammo drops
