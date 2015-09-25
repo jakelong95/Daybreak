@@ -6,20 +6,26 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
+import daybreak.utils.SoundManager;
+
 /**
  * Represents an enemy (a vampire). 
  */
 public class Enemy extends Entity
 {
-	//Time since path was last calculated
-	private long timeSinceCalculation;
+	public static final int DEFAULT_HEALTH = 10;
 	
-	//Time since last move
+	//Damage to deal to the player
+	public static final int DAMAGE = 1;
+	
+	private long timeSinceCalculation;	
 	private long timeSinceMove;
+	private long timeSinceAttack;
 	
 	//How long to wait between calculations and moves in milliseconds
 	private static final int CALCULATION_TIME = 500;
-	private static final int MOVE_TIME = 100;
+	private static final int MOVE_TIME = 300;
+	private static final int ATTACK_TIME = 1000;
 	
 	//List of movements to take in (x,y) format
 	private Stack<Coordinate> movements;
@@ -39,11 +45,16 @@ public class Enemy extends Entity
 		timeSinceCalculation = 0;
 		timeSinceMove = 0;
 		
+		hurtSound = SoundManager.mobDamage;
+		deathSound = SoundManager.mobDeath;
+		
 		movements = new Stack<Coordinate>();
 		
 		this.player = player;
 		
 		calculatePath();
+		
+		setHealth(DEFAULT_HEALTH);
 	}
 
 	@Override
@@ -51,6 +62,7 @@ public class Enemy extends Entity
 	{
 		timeSinceCalculation += deltaTime;
 		timeSinceMove += deltaTime;
+		timeSinceAttack += deltaTime;
 		
 		//Is it time to recalculate the path?
 		if(timeSinceCalculation >= CALCULATION_TIME)
@@ -70,6 +82,33 @@ public class Enemy extends Entity
 			Coordinate move = movements.pop();
 
 			setPosition(move.x, move.y);
+		}
+		
+		if(isAdjacentToPlayer())
+		{			
+			//First, make the enemy face the player
+			if(player.getPosX() > posX)
+			{
+				direction = Entity.DIRECTION_RIGHT;
+			}
+			else if(player.getPosX() < posX)
+			{
+				direction = Entity.DIRECTION_LEFT;
+			}
+			else if(player.getPosY() > posY)
+			{
+				direction = Entity.DIRECTION_DOWN;
+			}
+			else if(player.getPosY() < posY)
+			{
+				direction = Entity.DIRECTION_UP;
+			}
+			
+			if(timeSinceAttack >= ATTACK_TIME)
+			{
+				timeSinceAttack = 0;
+				player.updateHealth(-DAMAGE);
+			}
 		}
 	}
 
@@ -141,7 +180,9 @@ public class Enemy extends Entity
 				{
 					if((cur.y + y >= map.length || cur.y + y < 0) || //Make sure nothing goes out of bounds
 							visited[cur.y + y][cur.x + x] || //Skip anything that was already visited
+							map[cur.y + y][cur.x + x] == null || //Make sure it's not a null tile
 							!map[cur.y + y][cur.x + x].canEnemyPass || //Make sure the enemy can walk there
+							map[cur.y + y][cur.x + x].entity instanceof Enemy || //Make sure there's not an enemy already there
 							Math.abs(x) == Math.abs(y)) //Only check the orthogonals
 					{
 						continue;
@@ -173,7 +214,6 @@ public class Enemy extends Entity
 		//Check if a path was actually constructed
 		if(pred.get(dest) == null)
 		{
-			System.out.println("No path constructed.");
 			return;
 		}
 		
@@ -184,6 +224,39 @@ public class Enemy extends Entity
 			movements.push(cur);
 			cur = pred.get(cur);
 		}
+	}
+	
+	/**
+	 * Checks whether this enemy is adjacent to the player.
+	 * @return True if this enemy is adjacent to the player, false otherwise.
+	 */
+	private boolean isAdjacentToPlayer()
+	{
+		boolean adjacent = false;
+		
+		for(int x = -1; x <= 1; ++x)
+		{
+			for(int y = -1; y <= 1; ++y)
+			{
+				if(map[posY + y][posX + x] == null)  
+				{
+					continue;
+				}
+				
+				//Don't check the tile containing
+				if(Math.abs(x) == Math.abs(y))
+				{
+					continue;
+				}
+				
+				if(map[posY + y][posX + x].entity instanceof Player)
+				{
+					adjacent = true;
+				}
+			}
+		}
+		
+		return adjacent;
 	}
 	
 	/**
