@@ -7,7 +7,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import daybreak.gametype.ArenaGameType;
 import daybreak.gametype.StoryGameType;
-import daybreak.gametype.TestGameType;
 
 public class Daybreak extends StateBasedGame
 {
