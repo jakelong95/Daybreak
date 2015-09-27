@@ -238,7 +238,10 @@ public class Enemy extends Entity
 		{
 			for(int y = -1; y <= 1; ++y)
 			{
-				if(map[posY + y][posX + x] == null)  
+				//Check for out of bounds in array
+				if(posY + y < 0 || posY + y >= map.length ||
+				   posX + x < 0 || posX + x >= map[0].length ||
+				   map[posY + y][posX + x] == null) //Make sure the tile isn't null
 				{
 					continue;
 				}
