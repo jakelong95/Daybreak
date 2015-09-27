@@ -81,7 +81,15 @@ public class Enemy extends Entity
 			//Move will be the new coordinates in (x,y) format
 			Coordinate move = movements.pop();
 
-			setPosition(move.x, move.y);
+			//If there's an entity in the way find another path to the player
+			if(map[move.y][move.x].entity != null)
+			{
+				calculatePath();
+			}
+			else
+			{
+				setPosition(move.x, move.y);
+			}
 		}
 		
 		if(isAdjacentToPlayer())
@@ -104,6 +112,7 @@ public class Enemy extends Entity
 				direction = Entity.DIRECTION_UP;
 			}
 			
+			//Next, attack the player
 			if(timeSinceAttack >= ATTACK_TIME)
 			{
 				timeSinceAttack = 0;
@@ -238,7 +247,10 @@ public class Enemy extends Entity
 		{
 			for(int y = -1; y <= 1; ++y)
 			{
-				if(map[posY + y][posX + x] == null)  
+				//Check for out of bounds in array
+				if(posY + y < 0 || posY + y >= map.length ||
+				   posX + x < 0 || posX + x >= map[0].length ||
+				   map[posY + y][posX + x] == null) //Make sure the tile isn't null
 				{
 					continue;
 				}

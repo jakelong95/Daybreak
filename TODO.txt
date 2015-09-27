@@ -1,7 +1,5 @@
 Add score
-Fix issue in arena where spawning vampires cause a null pointer
 Add Ranged Weapons
-Fix issue where vampires move under players
 Show damage to vampires
 Mege Flavia Arcade mode
 Add health.
