@@ -1,9 +1,11 @@
 package daybreak.gametype;
 
+import java.awt.Rectangle;
 import java.util.AbstractSequentialList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -97,6 +99,13 @@ public abstract class GameType extends BasicGameState
 			}
 		}
 
+		//Draw the health bar for the player 
+		Rectangle rect = new Rectangle(400, 0, 10* player.getHealth(), 20); //Location of our health bar.
+		 graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
+		graphics.setColor(new Color(255,255,255));
+		graphics.drawRect(rect.x, rect.y, 10 *player.DEFAULT_HEALTH, 20);
+
+		
 		player.render(0, 0); //The coordinates aren't used because the player is centered
 	}
 
