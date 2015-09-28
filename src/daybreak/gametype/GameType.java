@@ -69,7 +69,7 @@ public abstract class GameType extends BasicGameState
 			for(int y = -5; y <= 5; ++y)
 			{
 				Image img = null;
-				Image entityImage = null; //If there's an entity, render it here
+				Entity entity = null; //If there's an entity, we render it here
 
 				//Make sure the tile exists
 				if(playerY + y < 0 || playerY + y >= map.length ||
@@ -81,24 +81,23 @@ public abstract class GameType extends BasicGameState
 				}
 				else
 				{
-					img = map[playerY + y][playerX + x].tileImage;
-
-					//Check if there's an entity in the tile
-					if(map[playerY + y][playerX + x].entity != null)
-					{
-						entityImage = map[playerY + y][playerX + x].entity.getImage();
-					}
+					//Keep a reference to the image and entity of the tile
+					Tile tile = map[playerY + y][playerX + x];
+					img = tile.tileImage;
+					entity = tile.entity;
 				}
 
 				graphics.drawImage(img, (x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
-				if(entityImage != null)
+				
+				//If there was an entity on the tile, render it
+				if(entity != null)
 				{
-					graphics.drawImage(entityImage, (x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
+					entity.render((x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
 				}
 			}
 		}
 
-		player.render();
+		player.render(0, 0); //The coordinates aren't used because the player is centered
 	}
 
 	@SuppressWarnings("unchecked")

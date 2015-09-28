@@ -214,4 +214,11 @@ public abstract class Entity
 	 * @param delta Time since last update in milliseconds
 	 */
 	public abstract void update(int deltaTime);
+	
+	/**
+	 * Renders this entity at the specified coordinates.
+	 * @param x X coordinate to render at
+	 * @param y Y coordinate to render at
+	 */
+	public abstract void render(int x, int y);
 }
