@@ -1,14 +1,10 @@
 package daybreak.gametype;
 
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
-
-
-
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -78,11 +74,7 @@ public class StoryGameType extends GameType
 		int minuteAsMili = 60 * 1000;
 		 ttf.drawString(0,0,(totalTime - elapsedTime)/minuteAsMili + ":" + String.format("%02d", (totalTime - elapsedTime) % minuteAsMili / 1000  ));
 		g.setColor(new Color(0,255,0));
-		Rectangle rect = new Rectangle(400, 0, 10* player.getHealth(), 20); //Location of our health bar.
-		 g.fillRect(rect.x, rect.y, rect.width, rect.height);
-		g.setColor(new Color(255,255,255));
-		g.drawRect(rect.x, rect.y, 10 *player.DEFAULT_HEALTH, 20);
-
+		
 		 if(gameOver)
 		 {
 			 sc.enterState(Daybreak.VICTORY);
@@ -180,7 +172,7 @@ public class StoryGameType extends GameType
 		}
 		
 		
-		player.setHealth(player.DEFAULT_HEALTH);
+		player.setHealth(Player.DEFAULT_HEALTH);
 		entities.clear();
 		openDoors.add(new XYPair(77, 10));
 		

@@ -139,7 +139,7 @@ public class Player extends Entity
 
 		setPosition(x, y);
 	}
-
+	
 	/**
 	 * Updates the reference to the input manager.
 	 * @param input Input manager.
@@ -152,8 +152,10 @@ public class Player extends Entity
 	/**
 	 * Renders the player's image.
 	 */
-	public void render()
+	public void render(int x, int y)
 	{
+		//(x,y) aren't used here because the player is centered in the window
+		
 		//Always render the player at the center of the screen
 		getImage().draw(4 * Daybreak.TILE_SIZE, 4 * Daybreak.TILE_SIZE);
 	}

@@ -78,10 +78,6 @@ public class ArenaGameType extends GameType
 		int minuteAsMili = 60 * 1000;
 		 ttf.drawString(0,0,( elapsedTime)/minuteAsMili + ":" + String.format("%02d", ( elapsedTime) % minuteAsMili / 1000  ));
 		g.setColor(new Color(0,255,0));
-		Rectangle rect = new Rectangle(400, 0, 10* player.getHealth(), 20); //Location of our health bar.
-		 g.fillRect(rect.x, rect.y, rect.width, rect.height);
-		g.setColor(new Color(255,255,255));
-		g.drawRect(rect.x, rect.y, 10 *player.DEFAULT_HEALTH, 20);
 
 		 if(gameOver)
 		 {

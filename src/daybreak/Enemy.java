@@ -271,6 +271,12 @@ public class Enemy extends Entity
 		return adjacent;
 	}
 	
+	@Override
+	public void render(int x, int y)
+	{
+		getImage().draw(x, y);
+	}
+	
 	/**
 	 * Represents a coordinate in the map.
 	 */
