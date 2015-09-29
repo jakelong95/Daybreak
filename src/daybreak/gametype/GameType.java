@@ -94,19 +94,20 @@ public abstract class GameType extends BasicGameState
 				//If there was an entity on the tile, render it
 				if(entity != null)
 				{
-					entity.render((x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE);
+					entity.render((x + 4) * Daybreak.TILE_SIZE, (y + 4) * Daybreak.TILE_SIZE, graphics);
 				}
 			}
 		}
 
 		//Draw the health bar for the player 
 		Rectangle rect = new Rectangle(400, 0, 10* player.getHealth(), 20); //Location of our health bar.
-		 graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
+		graphics.setColor(new Color(0, 255, 0));
+		graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
 		graphics.setColor(new Color(255,255,255));
 		graphics.drawRect(rect.x, rect.y, 10 *player.DEFAULT_HEALTH, 20);
 
 		
-		player.render(0, 0); //The coordinates aren't used because the player is centered
+		player.render(0, 0, graphics); //The coordinates aren't used because the player is centered
 	}
 
 	@SuppressWarnings("unchecked")
