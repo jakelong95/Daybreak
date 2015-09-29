@@ -1,6 +1,5 @@
 Add score
 Add Ranged Weapons
-Show damage to vampires
 Mege Flavia Arcade mode
 Add health.
 Lower enemy spawn rate
