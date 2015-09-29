@@ -1,5 +1,6 @@
 package daybreak;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -220,5 +221,5 @@ public abstract class Entity
 	 * @param x X coordinate to render at
 	 * @param y Y coordinate to render at
 	 */
-	public abstract void render(int x, int y);
+	public abstract void render(int x, int y, Graphics g);
 }

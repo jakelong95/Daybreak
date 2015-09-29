@@ -1,10 +1,14 @@
 package daybreak;
 
+import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 
 import daybreak.utils.SoundManager;
 
@@ -272,9 +276,16 @@ public class Enemy extends Entity
 	}
 	
 	@Override
-	public void render(int x, int y)
+	public void render(int x, int y, Graphics graphics)
 	{
 		getImage().draw(x, y);
+		
+		//Draw the health bar for the e
+		Rectangle rect = new Rectangle(x, y + 54, getHealth() * (Daybreak.TILE_SIZE / DEFAULT_HEALTH), 10);
+		graphics.setColor(new Color(0, 255, 0));
+		graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
+		graphics.setColor(new Color(255, 255, 255));
+		graphics.drawRect(rect.x, rect.y, Daybreak.TILE_SIZE, rect.height);
 	}
 	
 	/**

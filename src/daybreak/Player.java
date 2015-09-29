@@ -9,6 +9,7 @@ import static org.newdawn.slick.Input.KEY_S;
 import static org.newdawn.slick.Input.KEY_UP;
 import static org.newdawn.slick.Input.KEY_W;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -152,7 +153,8 @@ public class Player extends Entity
 	/**
 	 * Renders the player's image.
 	 */
-	public void render(int x, int y)
+	@Override
+	public void render(int x, int y, Graphics g)
 	{
 		//(x,y) aren't used here because the player is centered in the window
 		
