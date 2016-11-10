@@ -38,7 +38,7 @@ public class Daybreak extends StateBasedGame
 			AppGameContainer container = new AppGameContainer(new Daybreak());
 			container.setDisplayMode(WIDTH, HEIGHT, false);
 			container.setTargetFrameRate(FPS);
-			container.setShowFPS(false);
+			container.setShowFPS(true);
 			container.start();
 		}
 		catch(SlickException e)
