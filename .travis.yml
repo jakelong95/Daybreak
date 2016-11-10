@@ -4,6 +4,6 @@ addons:
   sonarqube: true
 env:
   global:
-    - secure: "5d06bce1a39ccd4d9268bc8a14c79f7ec116384b"
+    - secure: "F43SRcHzyoA5WGzLnTvX81zOT1nInayCi/vn96gfBUWk1qSN0+i39A5LxOvrOpBvugpuubFUvS9+0ialWRp/vWv7H6DOKxBPU14fGjpfBVvnMabCuRIxROFU33UWb4pNybllHRgSC7Y0aNmy6GWk2ao5To8fg6XjCO9WmXLtVn68b/HAS77oaULMsvSBCpW3qSW8nUKrBwLdqUe8jGc/0aS1CdIvBZcwv4E0ump1WNBsk8QrgqlpmoGOF9e4D5JiWp19BfhXNY93Ka7LJVQMcNyGUGeI/4WxEsaF5n01uYe+AOdeSQx4FOFDsONUiaDMs9vO2F6mYPWhqWr6uT+x0rMTB/utwSEdEUK5ks2yGA8SctRV+McSxBjSUMZ+xQGB8YQoJBy4eV4KmEvplTzR8GAPZsccOBSTFVrlKRSDBQziRDOlSg0rSLqN6D4ydqhq7xYbNbwoyOSoJbVVXMTFttmkexSln6usoGApmq/67E1N3lWU9w/x5R1H6554gxXbSDaBtyTR5mziZJuPKQdY/ozmlAJilyBJIO5ePEKid73mcX9yUe7SgTF85rJ3bnHKRN4Pmfb8O+xjfFItFoXQGmqCI38BDLQ8/jkLY7OmiJ6zaxiG9mU3RNKAZcc3mQDeJcIFFCwjo2KSG8KgRrV/guH77oKNRpCeaNZxZDyYcmk="
 script:
   - sonar-scanner -X -Dsonar.login=$daybreak
