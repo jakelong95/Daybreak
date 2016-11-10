@@ -6,4 +6,4 @@ env:
   global:
     - secure: "5d06bce1a39ccd4d9268bc8a14c79f7ec116384b"
 script:
-  - sonar-scanner -Dsonar.login=$CORELINK_SONAR_TOKEN
+  - sonar-scanner -Dsonar.login=$DAYBREAK_SONAR_TOKEN
