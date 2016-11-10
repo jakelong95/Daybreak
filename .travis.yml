@@ -1,2 +1,11 @@
 language: java
 jdk: oraclejdk8
+addons:
+	sonarqube: true
+	
+env:
+	global:
+		- secure: 5d06bce1a39ccd4d9268bc8a14c79f7ec116384b
+
+script:
+	- sonar-scanner -Dsonar.login=$SONAR_TOKEN
